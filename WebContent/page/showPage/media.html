@@ -1,0 +1,270 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<link rel="shortcut icon" type="image/x-icon" href="../../images/ico.ico" media="screen" />
+<title>媒体展示--放肆的青春诠释了悲伤</title>
+<meta name="keywords" content="个人博客" />
+<meta name="description" content="" />
+<link rel="stylesheet" href="../../css/index.css"/>
+    <link rel="stylesheet" href="../../css/style.css"/>
+    <link rel="stylesheet" href="../../layui/css/layui.css">
+
+    <script type="text/javascript" src="../../js/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="../../js/jquery.SuperSlide.2.1.1.js"></script>
+    <script type="text/javascript" src="../../layui/layui.js"></script>
+    <script type="text/javascript" src="../../js/share/share.js"> </script>
+    <script type="text/javascript" src="../../js/unit/unitil.js"></script>
+<!--[if lt IE 9]>
+<script src="js/html5.js"></script>
+<![endif]-->
+    <style>
+       #c_right .s_about img{margin-left: 15px;}
+      .xc_title{padding: 10px 10px 0px 10px;}
+      .xc_title .my_xc1{color: #4846bb;}
+      .my_xc{float: left;width: 100%;background: rgba(220, 213, 213, 0.2);}
+      .xc_one{ width: 250px;height: 260px;display:inline-block;margin-left: 20px;margin-top: 20px; /* background-image:url("../../images/photo_bg.jpg"); */margin-bottom: 20px;}
+      .con-bg{margin-top: 20px;}
+      .sumPhoto{color:#2b03f7;}
+      .play{
+            font-size:16px;
+            color: #059efb;
+        }
+       .my_cx2{
+            color: #082d48;
+            width: 200px;
+            margin: 0 auto;
+            overflow: hidden;
+            text-align: center;
+        }
+        .xc_one img{margin: 5px auto;padding-left: 10px;}
+        
+        .musci_content{    background: rgba(220, 213, 213, 0.2);
+            width: 100%;
+            color: #5d2b0d;}
+        .musci_content ul{padding: 0px 0 10px 0;line-height: 25px;}
+        .musci_content p{
+            margin-left: 20px;
+            font-size: 17px;
+            color: blue;
+        }
+        .musci_content ul li{margin-left: 50px;}
+
+        .my_musci{width: 100%;background: white;}
+        #music_content ul li a:hover{cursor: pointer;}
+        .video_content{    width: 100%;    background: rgba(220, 213, 213, 0.2);}
+        .my_video1{width: 500px;margin: 10px auto;background-image:url("../../images/movie_bg.jpg");display: inline-block;}
+        #video_list{
+            width: 400px;
+            color: #5d2b0d;
+            float: left;
+            position: relative;
+        }
+        #video_list p{
+            margin-left: 20px;
+            font-size: 17px;
+            color: blue;
+        }
+        #video_list ul li{
+            margin-left: 50px;
+            line-height: 25px;
+        }
+      #video_list ul li a:hover{
+          cursor: pointer;
+      }
+    </style>
+
+</head>
+
+<body>
+    <!--header start-->
+    <div id="header">
+      <img id="headImgUrl" alt="img" src="../../images/welcome.png" width="300" height="50" style="margin-left: 350px">
+      <p id="headSign">青春是打开了,就合不上的书。人生是踏上了，就回不了头的路，爱情是扔出了，就收不回的赌注。</p>
+      <div id="nav">
+        <ul>
+             <li><a href="../../index.html">首页</a></li>
+	         <li><a href="about.jsp">关于我</a></li>
+	         <li><a href="learn.html">学海无涯</a></li>
+	    <!--      <li><a href="dynamics.html">个人动态</a></li> -->
+	         <li><a href="personalDiary.html">个人日记</a></li>
+	         <li><a href="media.html">媒体展示</a></li>
+	         <li><a href="message.html">留言板</a></li>
+	         <div class="clear"></div>
+        </ul>
+      </div>
+    </div>
+    <!--header end-->
+    <!--content start-->
+    <div id="content_xc">
+         <div class="weizi">
+           <div class="wz_text">当前位置：<a href="../../index.html">首页</a>><h1>相册展示</h1></div>
+         </div>
+         <div class="xc_content">
+          <div class="xc_title">
+            <img src="../../images/xiangji.png" width="50" height="50">
+            <p class="my_xc1">我的相册</p>
+          </div><hr>
+          <div class="my_xc" id="my_xc">
+             <!--  <div class="xc_one">
+                  <img src="images/photo/8.jpg" width="250" height="230" onclick="showPhoto()">
+                  <p class="my_cx2">青春无悔</p>
+              </div> -->
+              
+          </div>
+
+             <!--音乐-->
+             <div class="my_musci">
+                 <div class="xc_title">
+                     <img src="../../images/music_tb.png" width="50" height="50">
+                     <p class="my_xc1">最近在听</p>
+                 </div><hr>
+                 <div class="musci_content" id="music_content">
+                     <p>播放列表:</p>
+                     <ul id="my_music_ul">
+                         <!-- 列表 -->
+                     </ul>
+                     <audio id="my_audio" controls="controls" src=""></audio>
+                 </div>
+             </div>
+
+             <!--视频 -->
+             <div class="my_video">
+                 <div class="xc_title">
+                     <img src="../../images/video_title.jpg" width="50" height="50">
+                     <p class="my_xc1">最近在看</p>
+                 </div><hr>
+                 <div class="video_content">
+                     <!--列表-->
+                     <div id="video_list">
+                         <p>播放列表:</p>
+                         <ul id="my_video_ul">
+                           <!-- 列表 -->
+                         </ul>
+                     </div>
+                     <!--播放器-->
+                     <div class="my_video1">
+                         <video id="video_play"  controls preload="auto"  width="500px" height="400px" >
+                            <source id="video_play_source" src="">
+                         </video>
+                     </div>
+                 </div>
+             </div>
+
+         </div>
+
+
+
+    </div>
+    <!--content end-->
+  <!--footer-->
+    <div id="footer">
+        <p id="footLabel">The Boy Who Harnessed The Wind Liaoyuangui</p>
+        <p id="footLabel1">联系方式:1129696968@qq.com</p>
+    </div>
+    <!--footer end-->
+    <script type="text/javascript">jQuery(".lanmubox").slide({easing:"easeOutBounce",delayTime:400});</script>
+    <script  type="text/javascript" src="../../js/nav.js"></script>
+    <script type="text/javascript" src="../../js/content/theme.js"></script>
+<!--动态加载-->
+<script>
+getAlbumInfo();
+getAllMusic();
+getAllMovie();
+//获取所有的相册信息
+function getAlbumInfo(){
+ 	  $.ajax({
+ 	     	url:'../../myalbum/queryAllMyalbumsAndSumPhoto.do',
+ 	     	type:'post',
+ 	     	success:function(res){
+ 	     		var str = ""; 
+     			$.each(res[0],function(j,items){
+     				//var update_time=(item.update_time==undefined)?'':item.update_time;
+   				    str += "<div class='xc_one'>"+
+     	            "<img src='"+res[0][j].coverUrl+"' width='230' height='230' onclick='showPhoto("+res[0][j].albumId+")'>"+
+     	            "<p class='my_cx2'>"+res[0][j].albumName+"<a class='sumPhoto'>（共"+res[1][j]+"张图片）</a></p>"+
+     	            "</div>";
+     			})
+ 	     		document.getElementById('my_xc').innerHTML = str;  
+ 	     	}
+ 	     });
+}
+//获取所有的音乐
+function getAllMusic(){
+	var data = {"isMusic":1}
+	$.ajax({
+	     	url:'../../media/selectAllMedia.do',
+	     	type:'post',
+	     	data:data,
+	     	success:function(res){
+	     		var str = ""; 
+	     		$.each(res,function(i,item){
+	     			var update_time=(item.update_time==undefined)?'':item.update_time;
+	     				str += "<li><img alt='音乐图标' src='"+item.mediaIcon+"' width='50' height='50'><a id='m"+item.id+"' onclick='playMusic("+item.id+")'>"+item.mediaName+"</a></li><hr>";
+	     		});
+	     		document.getElementById('my_music_ul').innerHTML = str;  
+	     	}
+	     });
+}
+
+//获取所有的视频
+function getAllMovie(){
+	var data = {"isMovie":1}
+	$.ajax({
+	     	url:'../../media/selectAllMedia.do',
+	     	type:'post',
+	     	data:data,
+	     	success:function(res){
+	     		var str = ""; 
+	     		$.each(res,function(i,item){
+	     			var update_time=(item.update_time==undefined)?'':item.update_time;
+	     				str += "<hr><li><img alt='视频图标' src='"+item.mediaIcon+"' width='60' height='60'><a id='m"+item.id+"' onclick='playMovie("+item.id+")'>"+item.mediaName+"</a></li>";
+	     		});
+	     		document.getElementById('my_video_ul').innerHTML = str;  
+	     	}
+	     });
+}
+//播放音乐
+var myAudio = document.getElementById('my_audio');
+function playMusic(id){
+	$.ajax({
+		url:"../../media/selectById.do",
+		type:"post",
+		data:{"id":id},
+		success:function(res){
+			$("#music_content ul li a").removeClass('play');
+	         $("#m"+id).addClass('play');
+	         myAudio.src=res.mediaUrl;
+	         myAudio.play(); //自动播放
+	         myAudio.loop;  // 循环播放
+		}
+	})
+}
+
+//播放视频
+var myVideo = $("#video_play");
+function playMovie(id){
+	$.ajax({
+		url:"../../media/selectById.do",
+		type:"post",
+		data:{"id":id},
+		success:function(res){
+			 $("#video_list ul li a").removeClass('play'); //移除样式
+	         $("#m"+id).addClass('play');
+	         var sourceDom = $("<source src=\""+ res.mediaUrl +"\">");
+	         myVideo.html(sourceDom);
+	         $("#video_play").load(); //重新加载
+	         myVideo[0].play(); //自动播放
+		}
+	})
+}
+
+
+function showPhoto(xcId) {
+    //传入相册id，去把该相册里所有照片查出来
+    window.location.href='grxc_xq.html?xcId='+xcId;
+}
+</script>
+
+</body>
+</html>

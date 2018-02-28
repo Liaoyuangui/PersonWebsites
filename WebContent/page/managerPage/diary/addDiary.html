@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+ <title></title>
+    <link rel="stylesheet" href="../../../layui/css/layui.css">
+    <style>
+        .layui-input-block textarea{
+          width: 800px;
+          height:200px;
+        }
+       
+    </style>
+</head>
+<body>
+
+<div class="layui-form"  enctype="multipart/form-data" id="js_form_box">
+	 <div class="layui-form-item">
+	   <p>备注：如果要换行请在换行处加"<'br'>"标签 </p>
+	    <div class="layui-form-item">
+		   <div class="layui-inline">
+		        <label class="layui-form-label">日记内容</label>
+		        <div class="layui-input-block">
+           			 <textarea class="layui-textarea" id="p_content" name="content" lay-verify="required" placeholder="请输入内容"  ></textarea>
+       		    </div>
+		   </div>
+	    </div>
+    </div>
+ 	<!--  其他   ：personOthers-->
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn"  id='btnSave'>立即提交</button>
+            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src='../../../js/jquery-2.1.1.min.js'></script>
+<script src="../../../layui/layui.js" charset="utf-8"></script>
+<!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
+<script>
+	var utilExt;
+	 layui.config({
+		base : '../../../js/unit/'
+	});
+    layui.use(['form','layedit', 'laydate','upload','layer','utilExt'], function(){
+        var form = layui.form
+                ,layer = layui.layer
+                ,layedit = layui.layedit
+                ,laydate = layui.laydate;
+        var $ = layui.jquery
+        utilExt=layui.utilExt;
+       var cid = utilExt.getUrlParam('diaryId'); //为null 添加，有值就修改
+       if(cid){
+    	   getDiary();//回显信息
+       }
+        //监听提交
+        $('#btnSave').click(function(){
+        	var dd = $("#p_content").val();
+        	if(dd.trim()==''){
+        		layer.alert('请输入内容',{icon:2});
+        		return;
+        	}
+        	var data = utilExt.getParamValues('p_','#js_form_box');
+        	var Url = '../../../diary/addDiary.do';
+        	if(cid){
+        		Url='../../../diary/updateDiary.do'
+        		data.id = cid;
+        	}
+        	$.ajax({
+    			url:Url,
+    			data:data,
+    			type:'post',
+    			success:function(res){
+    				console.log(res)
+    				if(res>0){
+    					var ms = cid ? '修改成功':'添加成功';
+    					utilExt.successMsg(ms, function() {
+							layer.closeAll();
+							if(cid){
+								parent.location.href='showDiary.html';
+							}else{
+								location.href='showDiary.html';
+							}
+					     });
+    				}else{
+    					var ms = cid ? '修改失败':'添加失败';
+    					layer.alert(ms,{icon:2});
+    				}
+    			}
+    		});
+        })
+
+      
+       //根据id 获取分类信息
+       function getDiary(){
+    	   var data={'id':cid}
+    	   $.ajax({
+    		  url:'../../../diary/selectById.do',
+    		  data:data,
+    		  type:'post',
+    		  success:function(res){
+    			  utilExt.setParamValues(res,'#js_form_box')
+    		  }
+    	   });
+       }
+      
+
+    });
+</script>
+
+</body>
+</html>

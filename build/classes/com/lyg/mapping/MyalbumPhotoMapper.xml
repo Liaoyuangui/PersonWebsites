@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lyg.dao.MyalbumPhotoMapper" >
+
+  <cache eviction="FIFO" flushInterval="600000" size="512" readOnly="true"/>
+  
+  <resultMap id="BaseResultMap" type="com.lyg.entitys.MyalbumPhoto" >
+    <id column="photo_id" property="photoId" jdbcType="INTEGER" />
+    <result column="album_id" property="albumId" jdbcType="INTEGER" />
+    <result column="photo_name" property="photoName" jdbcType="VARCHAR" />
+    <result column="photo_description" property="photoDescription" jdbcType="VARCHAR" />
+    <result column="photo_tags" property="photoTags" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="VARCHAR" />
+    <result column="photo_url" property="photoUrl" jdbcType="VARCHAR" />
+    <result column="small_photo_url" property="smallPhotoUrl" jdbcType="VARCHAR" />
+    <result column="is_used" property="isUsed" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    photo_id, album_id, photo_name, photo_description, photo_tags, create_time, photo_url, 
+    small_photo_url, is_used
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from myalbum_photo
+    where photo_id = #{photoId,jdbcType=INTEGER} and is_used = 1
+  </select>
+  
+  <!-- 根据相册Id查询所有的 -->
+  <select id="selectAllPhotoByAlbumId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select 
+    <include refid="Base_Column_List" />
+    from myalbum_photo
+    where album_id = #{albumId,jdbcType=INTEGER} and is_used = 1 order by create_time desc
+  </select>
+  
+    <!-- 根据相册Id查询共有多少张照片 -->
+  <select id="selectSumPhotoByAlbumId" resultType="java.lang.Integer" parameterType="java.lang.Integer">
+    select count(0) as sum_photo
+    from myalbum_photo
+    where album_id = #{albumId,jdbcType=INTEGER} and is_used = 1 
+  </select>
+  
+    <!-- 根据相册Id查询所有的除了当前显示的第一张除外 -->
+  <select id="selectAllPhotoCKphotoId" resultMap="BaseResultMap" parameterType="com.lyg.entitys.MyalbumPhoto">
+    select 
+    <include refid="Base_Column_List" />
+    from myalbum_photo
+    where album_id = #{albumId,jdbcType=INTEGER} and  photo_id != #{photoId,jdbcType=INTEGER} and is_used = 1 order by create_time desc
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from myalbum_photo
+    where photo_id = #{photoId,jdbcType=INTEGER}
+  </delete>
+  
+  <!-- 批量插入照片  -->
+  <insert id="insersBatch" parameterType="java.util.List">
+          insert into myalbum_photo  
+          (  photo_id, album_id,create_time, photo_url)   
+       values  
+       <foreach collection="list"  item="item" index="index" separator=",">  
+          (#{item.photoId},#{item.albumId},#{item.createTime},#{item.photoUrl})  
+       </foreach>      
+       <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="photoId">  
+            select LAST_INSERT_ID();  
+       </selectKey> 
+  </insert>
+  
+  <insert id="insert" parameterType="com.lyg.entitys.MyalbumPhoto" >
+    insert into myalbum_photo (photo_id, album_id, photo_name, 
+      photo_description, photo_tags, create_time, 
+      photo_url, small_photo_url, is_used
+      )
+    values (#{photoId,jdbcType=INTEGER}, #{albumId,jdbcType=INTEGER}, #{photoName,jdbcType=VARCHAR}, 
+      #{photoDescription,jdbcType=VARCHAR}, #{photoTags,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR}, 
+      #{photoUrl,jdbcType=VARCHAR}, #{smallPhotoUrl,jdbcType=VARCHAR}, #{isUsed,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.lyg.entitys.MyalbumPhoto" >
+    insert into myalbum_photo
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="photoId != null" >
+        photo_id,
+      </if>
+      <if test="albumId != null" >
+        album_id,
+      </if>
+      <if test="photoName != null" >
+        photo_name,
+      </if>
+      <if test="photoDescription != null" >
+        photo_description,
+      </if>
+      <if test="photoTags != null" >
+        photo_tags,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="photoUrl != null" >
+        photo_url,
+      </if>
+      <if test="smallPhotoUrl != null" >
+        small_photo_url,
+      </if>
+      <if test="isUsed != null" >
+        is_used,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="photoId != null" >
+        #{photoId,jdbcType=INTEGER},
+      </if>
+      <if test="albumId != null" >
+        #{albumId,jdbcType=INTEGER},
+      </if>
+      <if test="photoName != null" >
+        #{photoName,jdbcType=VARCHAR},
+      </if>
+      <if test="photoDescription != null" >
+        #{photoDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="photoTags != null" >
+        #{photoTags,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="photoUrl != null" >
+        #{photoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="smallPhotoUrl != null" >
+        #{smallPhotoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="isUsed != null" >
+        #{isUsed,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lyg.entitys.MyalbumPhoto" >
+    update myalbum_photo
+    <set >
+      <if test="albumId != null" >
+        album_id = #{albumId,jdbcType=INTEGER},
+      </if>
+      <if test="photoName != null" >
+        photo_name = #{photoName,jdbcType=VARCHAR},
+      </if>
+      <if test="photoDescription != null" >
+        photo_description = #{photoDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="photoTags != null" >
+        photo_tags = #{photoTags,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="photoUrl != null" >
+        photo_url = #{photoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="smallPhotoUrl != null" >
+        small_photo_url = #{smallPhotoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="isUsed != null" >
+        is_used = #{isUsed,jdbcType=INTEGER},
+      </if>
+    </set>
+    where photo_id = #{photoId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lyg.entitys.MyalbumPhoto" >
+    update myalbum_photo
+    set album_id = #{albumId,jdbcType=INTEGER},
+      photo_name = #{photoName,jdbcType=VARCHAR},
+      photo_description = #{photoDescription,jdbcType=VARCHAR},
+      photo_tags = #{photoTags,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=VARCHAR},
+      photo_url = #{photoUrl,jdbcType=VARCHAR},
+      small_photo_url = #{smallPhotoUrl,jdbcType=VARCHAR},
+      is_used = #{isUsed,jdbcType=INTEGER}
+    where photo_id = #{photoId,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 删除照片  -->
+  <update id="deletePhotoById" parameterType="java.lang.Integer">
+     update myalbum_photo set
+        is_used = 0
+     where photo_id = #{photoId,jdbcType=INTEGER}
+  </update>
+  
+  
+</mapper>

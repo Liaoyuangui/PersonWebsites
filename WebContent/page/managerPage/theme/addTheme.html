@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+ <title></title>
+    <link rel="stylesheet" href="../../../layui/css/layui.css">
+    <style>
+        .layui-upload-list{
+            width: 250px;
+            height: 150px;
+            border: 1px solid #ccc; 
+        }
+        .layui-upload-list .layui-upload-img{width:250px;height: 150px;}
+        .layui-upload{width:400px;height: 200px;margin-top: 10px;margin-left: 110px;}
+        
+    </style>
+</head>
+<body>
+ <p style="color:red">提示：图片请选择jpg或png格式，轮播图片请选择大像素的图片,头部图片：300*50</p>
+<div class="layui-form"  enctype="multipart/form-data" id="js_form_box">
+     <div class="layui-form-item">
+     <label class="layui-form-label">头部图片：</label>
+     <div class="layui-upload">
+        <input id="choseIcon" type="file" name="choseIcon"  lay-type="file" >
+       <!--  <button type="button" class="layui-btn" id="uploadTx">确定上传</button> -->
+        <div class="layui-upload-list">
+            <img class="layui-upload-img" name="themeIcon" id="themeIcon" width="300" height="50">
+        </div>
+     </div>
+    </div>
+    <div class="layui-form-item">
+         <div class="layui-inline">
+	        <label class="layui-form-label">主题名称：</label>
+	        <div class="layui-input-block">
+	            <input type="text"  required  lay-verify="required" id="p_themeName" autocomplete="off" placeholder="请输入主题" class="layui-input">
+	        </div>
+	   </div>
+	   <div class="layui-inline">
+	        <label class="layui-form-label">主题签名：</label>
+	        <div class="layui-input-block">
+	            <textarea name="p_headSign" placeholder="请输入个性签名"  id="p_headSign" class="layui-textarea"></textarea>
+	        </div>
+	   </div>
+	 </div>
+	 
+	 <div class="layui-form-item">
+         <div class="layui-inline">
+	        <label class="layui-form-label">底部标签1：</label>
+	        <div class="layui-input-block">
+	            <input type="text"  required  lay-verify="required" id="p_footLabel" autocomplete="off" placeholder="请输入" class="layui-input">
+	        </div>
+	      </div>
+	      <div class="layui-inline">
+	        <label class="layui-form-label">底部标签2：</label>
+	        <div class="layui-input-block">
+	            <input type="text"  required  lay-verify="required" id="p_footLabel1" autocomplete="off" placeholder="请输入" class="layui-input">
+	        </div>
+	      </div>
+	 </div>
+	
+	<div class="layui-form-item">
+		<div class="layui-inline">
+			   <label class="layui-form-label">轮播图片1：</label>
+		       <div class="">
+		        <input id="choseImg1" type="file" name="choseImg1"  lay-type="file" >
+		       <!--  <button type="button" class="layui-btn" id="uploadTx">确定上传</button> -->
+		        <div class="layui-upload-list">
+		            <img class="layui-upload-img" name="indexLbUrl1" id="indexLbUrl1" >
+		        </div>
+		      </div>
+	     </div>
+	     <div class="layui-inline">
+			   <label class="layui-form-label">轮播图片2：</label>
+		       <div class="">
+		        <input id="choseImg2" type="file" name="choseImg2"  lay-type="file" >
+		       <!--  <button type="button" class="layui-btn" id="uploadTx">确定上传</button> -->
+		        <div class="layui-upload-list">
+		            <img class="layui-upload-img" name="indexLbUrl2" id="indexLbUrl2" >
+		        </div>
+		      </div>
+	     </div>
+	     <div class="layui-inline">
+			   <label class="layui-form-label">轮播图片3：</label>
+		       <div class="">
+		        <input id="choseImg3" type="file" name="choseImg3"  lay-type="file" >
+		       <!--  <button type="button" class="layui-btn" id="uploadTx">确定上传</button> -->
+		        <div class="layui-upload-list">
+		            <img class="layui-upload-img" name="indexLbUrl3" id="indexLbUrl3" >
+		        </div>
+		      </div>
+	     </div>
+    </div>
+    
+ 	<!--  其他   ：personOthers-->
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn"  id='btnSave'>立即提交</button>
+            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src='../../../js/jquery-2.1.1.min.js'></script>
+<script src="../../../layui/layui.js" charset="utf-8"></script>
+<!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
+<script>
+	var utilExt;
+	 layui.config({
+		base : '../../../js/unit/'
+	});
+    layui.use(['form', 'layedit', 'laydate','upload','layer','utilExt'], function(){
+        var form = layui.form
+                ,layer = layui.layer
+                ,layedit = layui.layedit
+                ,laydate = layui.laydate;
+        var $ = layui.jquery
+                var upload = layui.upload;
+        utilExt=layui.utilExt;
+       var cid = utilExt.getUrlParam('tId'); //为null 添加，有值就修改
+       if(cid){
+    	   getThemeById();//回显信息
+       }
+        //监听提交
+        $('#btnSave').click(function(){
+        	var yz = yanzheng();
+        	if(yz == false){
+        		return;
+        	}
+        	var data = utilExt.getParamValues('p_','#js_form_box');
+        	data.headImgurl = $('#themeIcon').attr('src');
+        	data.indexLburl1 = $('#indexLbUrl1').attr('src');
+        	data.indexLburl2 = $('#indexLbUrl2').attr('src');
+        	data.indexLburl3 = $('#indexLbUrl3').attr('src');
+        	var Url = '../../../theme/insertSelective.do';
+        	if(cid){
+        		Url='../../../theme/updateThemeById.do'
+        		data.id = cid;
+        	}
+        	$.ajax({
+    			url:Url,
+    			data:data,
+    			type:'post',
+    			success:function(res){
+    				console.log(res)
+    				if(res>0){
+    					var ms = cid ? '修改成功':'添加成功';
+    					utilExt.successMsg(ms, function() {
+								layer.closeAll();
+								if(cid){
+									parent.location.href='myTheme.html';
+								}else{
+									location.href='myTheme.html';
+								}
+						});
+    				}else{
+    					var ms = cid ? '修改失败':'添加失败';
+    					layer.alert(ms,{icon:2});
+    				}
+    			}
+        	   
+    		});
+        })
+        
+      //根据id 获取分类信息
+        function getThemeById(){
+     	   var data={'id':cid}
+     	   $.ajax({
+     		  url:'../../../theme/selectByPrimaryKey.do',
+     		  data:data,
+     		  type:'post',
+     		  success:function(res){
+     			  utilExt.setParamValues(res,'#js_form_box')
+     			  $('#themeIcon').attr('src', res.headImgurl);
+     			  $('#indexLbUrl1').attr('src', res.indexLburl1);
+     			  $('#indexLbUrl2').attr('src', res.indexLburl2);
+     			  $('#indexLbUrl3').attr('src', res.indexLburl3);
+     			//  $('#p_isShow').siblings().find('dd[lay-value="' + res.isShow + '"]').click();
+     		  }
+     	   });
+        }
+
+       //普通图片上传头部图片
+        var uploadInst = upload.render({
+            elem: '#choseIcon'
+            ,url: '../../../theme/saveThemeHeadImg.do'
+           	,auto: true //选择文件后不自动上传
+            ,exts: 'jpg|png|jpeg' //文件格式
+        	,done: function(res){
+        	      //上传完毕回调
+        		 $('#themeIcon').attr('src', res.src);
+        		 layer.msg('上传成功',{icon:1});
+        	}
+           
+        });
+        //上传三张轮播图
+        var uploadInst = upload.render({
+            elem: '#choseImg1'
+            ,url: '../../../theme/saveIndexLbUrl1.do'
+           	,auto: true //选择文件后不自动上传
+            ,exts: 'jpg|png|jpeg' //文件格式
+        	,done: function(res){
+        	      //上传完毕回调
+        		 $('#indexLbUrl1').attr('src', res.src);
+        		 layer.msg('上传成功',{icon:1});
+        	}
+           
+        });
+        var uploadInst = upload.render({
+            elem: '#choseImg2'
+            ,url: '../../../theme/saveIndexLbUrl2.do'
+           	,auto: true //选择文件后不自动上传
+            ,exts: 'jpg|png|jpeg' //文件格式
+        	,done: function(res){
+        	      //上传完毕回调
+        		 $('#indexLbUrl2').attr('src', res.src);
+        		 layer.msg('上传成功',{icon:1});
+        	}
+           
+        });
+        var uploadInst = upload.render({
+            elem: '#choseImg3'
+            ,url: '../../../theme/saveIndexLbUrl3.do'
+           	,auto: true //选择文件后不自动上传
+            ,exts: 'jpg|png|jpeg' //文件格式
+        	,done: function(res){
+        	      //上传完毕回调
+        		 $('#indexLbUrl3').attr('src', res.src);
+        		 layer.msg('上传成功',{icon:1});
+        	}
+           
+        });
+       
+      
+       //验证输入框
+       function yanzheng(){
+    	   var icon = $('#themeIcon').attr('src');
+    	   if(icon==undefined){
+    		   layer.alert("请选择头部图标！",{icon:2});
+    		   return false;
+    	   } 
+    	   var name = $("#p_themeName").val();
+    	   if(name.trim()==''){
+    		   layer.alert('请输入主题名称！', {icon: 2});
+    		   return false;
+    	   }
+    	   var sign = $("#p_headSign").val();
+    	   if(sign.trim()==''){
+    		   layer.alert('请输入主题签名！', {icon: 2});
+    		   return false;
+    	   }
+    	   var foot1 = $("#p_footLabel1").val();
+    	   var foot2 = $("#p_footLabel").val();
+    	   if(foot1.trim()=='' && foot2.trim()==""){
+    		   layer.alert('请输入底部标签内容！', {icon: 2});
+    		   return false;
+    	   }
+    	   var indexLburl1 = $('#indexLbUrl1').attr('src');
+    	   var indexLburl2 = $('#indexLbUrl2').attr('src');
+    	   var indexLburl3 = $('#indexLbUrl3').attr('src');
+    	   if(indexLburl1 == undefined){
+    		   layer.alert('请上传轮播图1！', {icon: 2});
+    		   return false;
+    	   }
+    	   if(indexLburl2 == undefined){
+    		   layer.alert('请上传轮播图2！', {icon: 2});
+    		   return false;
+    	   }
+    	   if(indexLburl3 == undefined){
+    		   layer.alert('请上传轮播图3！', {icon: 2});
+    		   return false;
+    	   }
+    	   return true;
+       }
+
+    });
+    
+  
+</script>
+
+</body>
+</html>

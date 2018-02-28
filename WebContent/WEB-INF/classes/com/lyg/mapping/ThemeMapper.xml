@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lyg.dao.ThemeMapper" >
+  <resultMap id="BaseResultMap" type="com.lyg.entitys.Theme" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="theme_name" property="themeName" jdbcType="VARCHAR" />
+    <result column="head_imgUrl" property="headImgurl" jdbcType="VARCHAR" />
+    <result column="head_sign" property="headSign" jdbcType="VARCHAR" />
+    <result column="index_lbUrl1" property="indexLburl1" jdbcType="VARCHAR" />
+    <result column="index_lbUrl2" property="indexLburl2" jdbcType="VARCHAR" />
+    <result column="index_lbUrl3" property="indexLburl3" jdbcType="VARCHAR" />
+    <result column="foot_label1" property="footLabel1" jdbcType="VARCHAR" />
+    <result column="foot_label" property="footLabel" jdbcType="VARCHAR" />
+    <result column="user_defined1" property="userDefined1" jdbcType="INTEGER" />
+    <result column="user_defined2" property="userDefined2" jdbcType="VARCHAR" />
+    <result column="user_defined3" property="userDefined3" jdbcType="VARCHAR" />
+    <result column="add_time" property="addTime" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="VARCHAR" />
+    <result column="is_start" property="isStart" jdbcType="INTEGER" />
+    <result column="is_used" property="isUsed" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, theme_name, head_imgUrl, head_sign, index_lbUrl1, index_lbUrl2, index_lbUrl3, 
+    foot_label1, foot_label, user_defined1, user_defined2, user_defined3, add_time, update_time, 
+    is_start, is_used
+  </sql>
+
+<!-- 根据id查询  -->
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from theme
+    where id = #{id,jdbcType=INTEGER} and is_used = 1
+  </select>
+  
+<!--查询所有的主题  -->  
+  <select id="selectAlltheme" resultMap="BaseResultMap" parameterType="com.lyg.entitys.Theme">
+    select 
+    <include refid="Base_Column_List" />
+    from theme
+    where 1=1 and is_used = 1 
+     <if test="themeName != null" >
+       and theme_name = #{themeName}
+      </if>
+      <if test="headSign != null" >
+        and head_sign=#{headSign}
+      </if>
+      <if test="footLabel1 != null" >
+        and  foot_label1={footLabel1}
+      </if>
+      <if test="footLabel != null" >
+        and foot_label = #{footLabel}
+      </if>
+      <if test="addTime != null" >
+        and add_time=#{addTime}
+      </if>
+      <if test="updateTime != null" >
+        and update_time=#{updateTime}
+      </if>
+      <if test="isStart != null" >
+        and is_start=#{isStart}
+      </if>
+  </select>
+<!-- 查询所有的除当前id之外 -->
+   <select id="selectAllThemeCkById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+       select id,is_start from theme where is_used = 1 and id != #{id}
+   </select>
+<!-- 删除  -->  
+  <update id="deleteThemeById" parameterType="java.lang.Integer">
+     update theme set is_used = 0  where id = #{id,jdbcType=INTEGER}
+  </update>
+<!-- 启用主题 -->
+  <update id="startThemeById" parameterType="java.lang.Integer">
+     update theme set is_start = 1 where id = #{id,jdbcType=INTEGER}
+  </update>
+<!-- 禁用主题 -->
+  <update id="stopThemeById" parameterType="java.lang.Integer">
+     update theme set is_start = 0 where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from theme
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lyg.entitys.Theme" >
+    insert into theme (id, theme_name, head_imgUrl, 
+      head_sign, index_lbUrl1, index_lbUrl2, 
+      index_lbUrl3, foot_label1, foot_label, 
+      user_defined1, user_defined2, user_defined3, 
+      add_time, update_time, is_start, 
+      is_used)
+    values (#{id,jdbcType=INTEGER}, #{themeName,jdbcType=VARCHAR}, #{headImgurl,jdbcType=VARCHAR}, 
+      #{headSign,jdbcType=VARCHAR}, #{indexLburl1,jdbcType=VARCHAR}, #{indexLburl2,jdbcType=VARCHAR}, 
+      #{indexLburl3,jdbcType=VARCHAR}, #{footLabel1,jdbcType=VARCHAR}, #{footLabel,jdbcType=VARCHAR}, 
+      #{userDefined1,jdbcType=INTEGER}, #{userDefined2,jdbcType=VARCHAR}, #{userDefined3,jdbcType=VARCHAR}, 
+      #{addTime,jdbcType=VARCHAR}, #{updateTime,jdbcType=VARCHAR}, #{isStart,jdbcType=INTEGER}, 
+      #{isUsed,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lyg.entitys.Theme" >
+    insert into theme
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="themeName != null" >
+        theme_name,
+      </if>
+      <if test="headImgurl != null" >
+        head_imgUrl,
+      </if>
+      <if test="headSign != null" >
+        head_sign,
+      </if>
+      <if test="indexLburl1 != null" >
+        index_lbUrl1,
+      </if>
+      <if test="indexLburl2 != null" >
+        index_lbUrl2,
+      </if>
+      <if test="indexLburl3 != null" >
+        index_lbUrl3,
+      </if>
+      <if test="footLabel1 != null" >
+        foot_label1,
+      </if>
+      <if test="footLabel != null" >
+        foot_label,
+      </if>
+      <if test="userDefined1 != null" >
+        user_defined1,
+      </if>
+      <if test="userDefined2 != null" >
+        user_defined2,
+      </if>
+      <if test="userDefined3 != null" >
+        user_defined3,
+      </if>
+      <if test="addTime != null" >
+        add_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="isStart != null" >
+        is_start,
+      </if>
+      <if test="isUsed != null" >
+        is_used,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="themeName != null" >
+        #{themeName,jdbcType=VARCHAR},
+      </if>
+      <if test="headImgurl != null" >
+        #{headImgurl,jdbcType=VARCHAR},
+      </if>
+      <if test="headSign != null" >
+        #{headSign,jdbcType=VARCHAR},
+      </if>
+      <if test="indexLburl1 != null" >
+        #{indexLburl1,jdbcType=VARCHAR},
+      </if>
+      <if test="indexLburl2 != null" >
+        #{indexLburl2,jdbcType=VARCHAR},
+      </if>
+      <if test="indexLburl3 != null" >
+        #{indexLburl3,jdbcType=VARCHAR},
+      </if>
+      <if test="footLabel1 != null" >
+        #{footLabel1,jdbcType=VARCHAR},
+      </if>
+      <if test="footLabel != null" >
+        #{footLabel,jdbcType=VARCHAR},
+      </if>
+      <if test="userDefined1 != null" >
+        #{userDefined1,jdbcType=INTEGER},
+      </if>
+      <if test="userDefined2 != null" >
+        #{userDefined2,jdbcType=VARCHAR},
+      </if>
+      <if test="userDefined3 != null" >
+        #{userDefined3,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null" >
+        #{addTime,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="isStart != null" >
+        #{isStart,jdbcType=INTEGER},
+      </if>
+      <if test="isUsed != null" >
+        #{isUsed,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lyg.entitys.Theme" >
+    update theme
+    <set >
+      <if test="themeName != null" >
+        theme_name = #{themeName,jdbcType=VARCHAR},
+      </if>
+      <if test="headImgurl != null" >
+        head_imgUrl = #{headImgurl,jdbcType=VARCHAR},
+      </if>
+      <if test="headSign != null" >
+        head_sign = #{headSign,jdbcType=VARCHAR},
+      </if>
+      <if test="indexLburl1 != null" >
+        index_lbUrl1 = #{indexLburl1,jdbcType=VARCHAR},
+      </if>
+      <if test="indexLburl2 != null" >
+        index_lbUrl2 = #{indexLburl2,jdbcType=VARCHAR},
+      </if>
+      <if test="indexLburl3 != null" >
+        index_lbUrl3 = #{indexLburl3,jdbcType=VARCHAR},
+      </if>
+      <if test="footLabel1 != null" >
+        foot_label1 = #{footLabel1,jdbcType=VARCHAR},
+      </if>
+      <if test="footLabel != null" >
+        foot_label = #{footLabel,jdbcType=VARCHAR},
+      </if>
+      <if test="userDefined1 != null" >
+        user_defined1 = #{userDefined1,jdbcType=INTEGER},
+      </if>
+      <if test="userDefined2 != null" >
+        user_defined2 = #{userDefined2,jdbcType=VARCHAR},
+      </if>
+      <if test="userDefined3 != null" >
+        user_defined3 = #{userDefined3,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null" >
+        add_time = #{addTime,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="isStart != null" >
+        is_start = #{isStart,jdbcType=INTEGER},
+      </if>
+      <if test="isUsed != null" >
+        is_used = #{isUsed,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lyg.entitys.Theme" >
+    update theme
+    set theme_name = #{themeName,jdbcType=VARCHAR},
+      head_imgUrl = #{headImgurl,jdbcType=VARCHAR},
+      head_sign = #{headSign,jdbcType=VARCHAR},
+      index_lbUrl1 = #{indexLburl1,jdbcType=VARCHAR},
+      index_lbUrl2 = #{indexLburl2,jdbcType=VARCHAR},
+      index_lbUrl3 = #{indexLburl3,jdbcType=VARCHAR},
+      foot_label1 = #{footLabel1,jdbcType=VARCHAR},
+      foot_label = #{footLabel,jdbcType=VARCHAR},
+      user_defined1 = #{userDefined1,jdbcType=INTEGER},
+      user_defined2 = #{userDefined2,jdbcType=VARCHAR},
+      user_defined3 = #{userDefined3,jdbcType=VARCHAR},
+      add_time = #{addTime,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=VARCHAR},
+      is_start = #{isStart,jdbcType=INTEGER},
+      is_used = #{isUsed,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

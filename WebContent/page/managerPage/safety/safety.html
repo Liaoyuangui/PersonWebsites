@@ -1,0 +1,113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" type="text/css" href="../../../layui/css/layui.css" />
+
+<style type="text/css">
+body {
+	padding: 10px;
+}
+
+.layui-input.disabled {
+	cursor: not-allowed;
+}
+
+.layui-form-label {
+	padding: 9px 5px;
+	width: 112px;
+}
+
+.layui-form-label:after {
+	content: '*';
+	color: red;
+}
+
+.form-btn-box {
+	margin-top: 30px;
+	margin-left: 100px;
+}
+
+.hidden {
+	display: none;
+}
+
+.layui-form-select dl {
+	z-index: 9999 !important;
+}
+
+.site-demo-upload {
+	left: 40%;
+}
+
+.layui-upload-button {
+	left: -45px;
+}
+</style>
+</style>
+</head>
+<body>
+	<div class="layui-form" id="js_form_box">
+		<input type="hidden" id="p_pk">
+		<div class="layui-form-item">
+			<div class="layui-inline">
+				<label class="layui-form-label">旧密码</label>
+				<div class="layui-input-inline">
+					<input type="password" id="p_ymm" lay-verify="required" autocomplete="off" class="layui-input">
+				</div>
+			</div>
+		</div>
+		<div class="layui-form-item">
+			<div class="layui-inline">
+				<label class="layui-form-label">新密码</label>
+				<div class="layui-input-inline">
+					<input type="password" id="p_xmm" lay-verify="required" autocomplete="off" class="layui-input" >
+				</div>
+			</div>
+		</div>
+		<div class="layui-form-item">
+			<div class="layui-inline">
+				<label class="layui-form-label">再次输入密码</label>
+				<div class="layui-input-inline">
+					<input type="password" id="p_xmmAgin" lay-verify="required" autocomplete="off" class="layui-input" >
+				</div>
+			</div>
+		</div>
+		<div class="clear"></div>
+		<div class="form-btn-box">
+			<button class="layui-btn" lay-submit="" lay-filter="btnSave">修&nbsp;&nbsp;&nbsp;&nbsp;改</button>
+		</div>
+	</div>
+	<script src="../../../layui/layui.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		layui.config({
+			base : '../../../js/unit/'
+		});
+		layui.use([ 'form', 'utilExt', 'laydate','upload' ],
+						function() {
+							var form = layui.form;
+							var $ = layui.jquery, layer = layui.layer,  utilExt = layui.utilExt;
+							var laydate = layui.laydate, upload = layui.upload;
+							//监听提交
+							form.on('submit(btnSave)', function(data) {
+								var postUrl = '../../../users/setPassword.do';
+								var postData = utilExt.getParamValues('p_','#js_form_box');
+								if(postData.xmmAgin!=postData.xmm){
+									layer.alert("两次输入的密码不一致");
+									return;
+								}
+								$.ajax({
+									url:postUrl,
+									type:"post",
+									data:postData,
+									success:function(res){
+										layer.alert(res.msg);
+									}
+								});
+								return false;
+							});
+
+						});
+	</script>
+</body>
+</html>

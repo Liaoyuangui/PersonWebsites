@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>layui</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+ <link rel="stylesheet" href="../../../layui/css/layui.css" media="all">
+ <script type="text/javascript" src='../../../js/jquery-2.1.1.min.js'></script> 
+  <style type="text/css">
+   #myTable{
+     width:100%;
+   }
+  </style>
+
+</head>
+<body>  
+<!-- <div class="layui-btn-group demoTable">
+  <button class="layui-btn" data-type="getCheckData">获取选中行数据</button>
+  <button class="layui-btn" data-type="getCheckLength">获取选中数目</button>
+  <button class="layui-btn" data-type="isAll">验证是否全选</button>
+</div> -->
+<!-- lay-verify="required" -->
+<form class="layui-form" action="" id="js_form_box">
+	   <div class="layui-form-item">
+	    <div class="layui-inline">
+	      <label class="layui-form-label">分类名称</label>
+	      <div class="layui-input-inline">
+	        <input type="text" id='p_className' autocomplete="off" class="layui-input" >
+	      </div>
+	    </div>
+	    <div class="layui-inline">
+	      <label class="layui-form-label">创建时间</label>
+	      <div class="layui-input-inline">
+	        <input type="text"  autocomplete="off" id='p_createTime' class="layui-input" readonly="readonly" placeholder="yyyy-MM-dd">
+	      </div>
+	    </div>
+            <a class="layui-btn"    id='btnSave'>查询</a>
+	  </div>
+  </form><hr>
+ <div>
+   <button  class="layui-btn" id='update'>编辑</button>  
+   <button  class="layui-btn" id='del'>删除</button>  
+</div>
+<table class="layui-table" id='myTable'>
+  <thead>
+    <tr>
+      <th>选择</th>
+      <th>编号</th>
+      <th>创建人</th>
+      <th>分类名称</th>
+      <th>图标</th>
+      <th>首页显示？</th>
+      <th>背景颜色</th>
+      <th>创建时间</th>
+      <th>修改时间</th>
+    </tr>
+  </thead>
+  <tbody id='tbody'>
+  </tbody>
+</table>
+ 
+          
+<script src="../../../layui/layui.js" charset="utf-8"></script> 
+<script>
+	var utilExt;
+	 layui.config({
+		base : '../../../js/unit/'
+	});
+    layui.use(['form', 'layedit', 'laydate','upload','layer','utilExt'], function(){
+        var form = layui.form
+                ,layer = layui.layer
+                ,layedit = layui.layedit
+                ,laydate = layui.laydate;
+        var $ = layui.jquery
+                var upload = layui.upload;
+        utilExt=layui.utilExt;
+        //常规用法
+        laydate.render({
+          elem: '#p_createTime'
+        });
+      //监听提交
+        $("#btnSave").click(function(){
+        	getAllClass();
+        });
+        getAllClass();
+       //获取所有的
+       function getAllClass(){
+    	   var data = utilExt.getParamValues('p_','#js_form_box');
+        	  $.ajax({
+        	     	url:'../../../articlesClass/getAllArticlesClass.do',
+        	     	type:'post',
+        	     	data:data,
+        	     	success:function(res){
+        	     		var str = ""; 
+        	     		$.each(res,function(i,item){
+        	     			var update_time=(item.update_time==undefined)?'':item.update_time;
+        	     			var isShow = (item.is_show==0)?"否":"是";
+        	     			var bgColor=(item.bg_style==undefined)?'':item.bg_style;
+        	     			str += "<tr>"
+        	     			     + "<th><input name='category' type='checkbox' value='"+item.class_id+"'></th>"
+        	     			     + "<th>"+(i+1)+"</th>"
+        	     			     + "<th>"+item.login_name+"</th>"
+        	     			     + "<th>"+item.class_name+"</th>"
+        	     			     + "<th>暂不显示</th>"
+        	     			     + "<th>"+isShow+"</th>"
+        	     			     + "<th>"+bgColor+"</th>"
+        	     			     + "<th>"+item.create_time+"</th>"
+        	     			     + "<th>"+update_time+"</th>"
+        	     			    +"</tr>";
+        	     		});
+        	     		document.getElementById('tbody').innerHTML = str;  
+        	     	}
+        	     });
+        }
+      
+        //获取多选框
+        function checkeNum() 
+        {            
+                var arr = new Array();                
+                var items = document.getElementsByName("category");                 
+                for (i = 0; i < items.length; i++) {                    
+                    if (items[i].checked) {   
+                        arr.push(items[i].value);                    
+                    }                
+                }                 
+                return arr;
+                 
+        } 
+        
+      //修改
+     	  $("#update").click(function(){
+     		 	var arr = checkeNum();
+     		 	if(arr.length!=1){
+     		 		layer.msg("必须且只能选择一条数据",{icon:2});
+     		 		return;
+     		 	}
+     		    layer.open({
+     	        type: 2//
+     	        ,title: '编辑文章分类'
+     	        ,content: 'addArticlesClass.html?classId='+arr
+     	        ,area: ['530px', '440px']
+     	        ,maxmin: true
+     	        ,skin:'layui-layer-lan'
+     	      });
+     	  });
+       
+          //删除
+          $("#del").click(function(){
+         		var arr = checkeNum();
+     		 	if(arr.length!=1){
+     		 		layer.msg("必须且只能选择一条数据",{icon:2});
+     		 		return;
+     		 	}
+     		 	layer.confirm("您是否要删除该分类？", {
+     				title : "删除提示！"
+     			}, function() {
+     				var data = {'classId':arr[0]}
+         		 	$.ajax({
+         		 		url:'../../../articlesClass/deleteArticlesClassByClassId.do',
+         		 		data:data,
+         		 		success:function(res){
+         		 			if(res>0){
+         		 				utilExt.successMsg("删除成功！！！", function() {
+      								layer.closeAll();
+      								getAllClass();
+      							});
+         		 			}else{
+         		 				utilExt.errorMsg("删除失败");
+         		 			}
+         		 		}
+         		 	});
+     			});
+     		 	
+          });
+      
+       });
+
+   </script>
+
+<script type="text/javascript">
+  
+  
+ 
+</script>
+
+</body>
+</html>

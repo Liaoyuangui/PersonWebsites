@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+ <title></title>
+    <link rel="stylesheet" href="../../../layui/css/layui.css">
+    <script type="text/javascript"
+	src="../../../js/NoticeEdit/third-party/jquery.min.js"></script>
+	<script type="text/javascript"
+		src="../../../js/NoticeEdit/third-party/template.min.js"></script>
+	<script type="text/javascript" charset="utf-8"
+		src="../../../js/NoticeEdit/ueditor.config.js"></script>
+	<script type="text/javascript" charset="utf-8"
+		src="../../../js/NoticeEdit/ueditor.all.min.js"></script>
+	<script type="text/javascript" src="../../../js/NoticeEdit/lang/zh-cn/zh-cn.js"></script>
+    
+    <style>
+        .layui-upload-list .contentIcon{
+            width: 150px;
+            height: 150px;
+            border: 1px solid #ccc; 
+        }
+        .layui-upload-list .layui-upload-img{width:150px;height: 150px;}
+        .layui-upload{width:400px;height: 200px;margin-top: 10px;margin-left: 110px;}
+        .layui-input-block textarea{
+          width: 500px;
+        }
+        .layui-upload-list .contentImg{
+          width: 400px;
+          border: 1px solid #ccc; 
+        }
+    </style>
+</head>
+<body>
+<!--所有内容  -->
+<div class="layui-form" id="js_form_box">
+ <div class="layui-form-item">
+	   <div class="layui-inline">
+	        <label class="layui-form-label">文章标题</label>
+	        <div class="layui-input-block">
+	            <input type="text" name="" lay-verify="required" id="p_cententTitle" autocomplete="off" placeholder="请输入标题" class="layui-input">
+	        </div>
+	   </div>
+	    <div class="layui-inline">
+	        <label class="layui-form-label">选择分类</label>
+	        <div class="layui-input-block" id='fenlei'>
+	            <select name="classId" lay-filter="p_classId" id="p_classId">
+	              <option value='0'></option>
+	            </select>
+	        </div>
+	    </div>
+    </div>
+    <div class="layui-inline">
+	        <label class="layui-form-label">是否推荐</label>
+	        <div class="layui-input-block" >
+	            <select name="p_isTj" lay-filter="p_isTj" id="p_isTj">
+	              <option value='0'></option>
+	              <option value='0'>否</option>
+	              <option value='1'>是</option>
+	            </select>
+	        </div>
+	    </div>
+     <div class="layui-form-item">
+      <div class="layui-inline">
+    	 <label class="layui-form-label">展示图片：</label>
+		<div class="layui-form"  enctype="multipart/form-data" >
+	     	<div class="layui-upload">
+	        <input id="chose" type="file" name="choseIcon"  lay-type="file" >
+	       <!--  <button type="button" class="layui-btn" id="uploadTx">确定上传</button> -->
+	        <div class="layui-upload-list">
+	            <img class="layui-upload-img contentIcon" name="contentIcon" id="p_contentIcon" >
+	            <p id="userText"></p>
+	        </div>
+	       </div>
+     	</div>
+     	</div>
+     	
+    </div>
+    <!-- 正文区 -->
+    <div id='contentBox'>
+ 		 <!-- <div class="layui-form-item">
+		   <div class="layui-inline">
+		        <label class="layui-form-label">主页内容</label>
+		        <div class="layui-input-block">
+           			 <textarea class="layui-textarea" id="p_content1" name="content1" placeholder="请输入内容"  ></textarea>
+       		    </div>
+		   </div>
+	    </div> -->
+<!--	     <div class="layui-form-item">
+		   <div class="layui-inline">
+		        <label class="layui-form-label">正文图片1</label>
+		        <div class="layui-form"  enctype="multipart/form-data" >
+		     	<div class="layui-upload">
+			        <input id="choseImg1" type="file" name="choseImg1"  lay-type="file" >
+			        <button type="button" class="layui-btn" id="uploadTx">确定上传</button>
+			        <div class="layui-upload-list">
+			            <img class="layui-upload-img contentImg" name="content1Img" id="p_content1Img" >
+			            <p id="userText"></p>
+			        </div>
+		        </div>
+	     		</div>
+		   </div>
+	    </div>
+	    
+	     <div class="layui-form-item">
+		   <div class="layui-inline">
+		        <label class="layui-form-label">正文内容2</label>
+		        <div class="layui-input-block">
+           			 <textarea class="layui-textarea" id="p_content2" name="content2" placeholder="请输入内容"  ></textarea>
+       		    </div>
+		   </div>
+	    </div>
+	     <div class="layui-form-item">
+		   <div class="layui-inline">
+		        <label class="layui-form-label">正文图片2</label>
+		        <div class="layui-form"  enctype="multipart/form-data" >
+		     	<div class="layui-upload">
+			        <input id="choseImg2" type="file" name="choseImg2"  lay-type="file" >
+			        <button type="button" class="layui-btn" id="uploadTx">确定上传</button>
+			        <div class="layui-upload-list">
+			            <img class="layui-upload-img contentImg" name="content2Img" id="p_content2Img" >
+			            <p id="userText"></p>
+			        </div>
+		        </div>
+	     		</div>
+		   </div>
+	    </div>
+	    
+	     <div class="layui-form-item">
+		   <div class="layui-inline">
+		        <label class="layui-form-label">正文内容3</label>
+		        <div class="layui-input-block">
+           			 <textarea class="layui-textarea" id="p_content3" name="content3" placeholder="请输入内容"  ></textarea>
+       		    </div>
+		   </div>
+	    </div>
+	     <div class="layui-form-item">
+		   <div class="layui-inline">
+		        <label class="layui-form-label">正文图片3</label>
+		        <div class="layui-form"  enctype="multipart/form-data" >
+		     	<div class="layui-upload">
+			        <input id="choseImg3" type="file" name="choseImg3"  lay-type="file" >
+			        <button type="button" class="layui-btn" id="uploadTx">确定上传</button>
+			        <div class="layui-upload-list">
+			            <img class="layui-upload-img contentImg" name="content3Img" id="p_content3Img" >
+			            <p id="userText"></p>
+			        </div>
+		        </div>
+	     		</div>
+		   </div>
+	    </div>
+	    
+	     <div class="layui-form-item">
+		   <div class="layui-inline">
+		        <label class="layui-form-label">正文内容4</label>
+		        <div class="layui-input-block">
+           			 <textarea class="layui-textarea" id="p_content4" name="content4" placeholder="请输入内容"  ></textarea>
+       		    </div>
+		   </div>
+	    </div>
+	     <div class="layui-form-item">
+		   <div class="layui-inline">
+		        <label class="layui-form-label">正文图片4</label>
+		        <div class="layui-form"  enctype="multipart/form-data" >
+		     	<div class="layui-upload">
+			        <input id="choseImg4" type="file" name="choseImg4"  lay-type="file" >
+			        <button type="button" class="layui-btn" id="uploadTx">确定上传</button>
+			        <div class="layui-upload-list">
+			            <img class="layui-upload-img contentImg" name="content4Img" id="p_content4Img" >
+			            <p id="userText"></p>
+			        </div>
+		        </div>
+	     		</div>
+		   </div>
+	    </div>
+	    
+	     <div class="layui-form-item">
+		   <div class="layui-inline">
+		        <label class="layui-form-label">正文内容5</label>
+		        <div class="layui-input-block">
+           			 <textarea class="layui-textarea" id="p_content5" name="content5" placeholder="请输入内容"  ></textarea>
+       		    </div>
+		   </div>
+	    </div>
+	     <div class="layui-form-item">
+		   <div class="layui-inline">
+		        <label class="layui-form-label">正文图片5</label>
+		        <div class="layui-form"  enctype="multipart/form-data" >
+		     	<div class="layui-upload">
+			        <input id="choseImg5" type="file" name="choseImg5"  lay-type="file" >
+			        <button type="button" class="layui-btn" id="uploadTx">确定上传</button>
+			        <div class="layui-upload-list">
+			            <img class="layui-upload-img contentImg" name="content5Img" id="p_content5Img" >
+			            <p id="userText"></p>
+			        </div>
+		        </div>
+	     		</div>
+		   </div>
+	    </div> -->
+	     <div class="layui-form-item">
+		   <div class="layui-inline">
+		        <label class="layui-form-label">正文内容</label>
+		        <div class="layui-input-block">
+           			 <script type="text/plain" id="myEditor" style="width: 98%; height: 250px;"></script>
+       		    </div>
+		   </div>
+	    </div>
+	    
+	 	<!--  其他   ：personOthers-->
+	    <div class="layui-form-item">
+	        <div class="layui-input-block">
+	            <button class="layui-btn"  id='btnSave'>立即提交</button>
+	            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+	        </div>
+	    </div>
+	    
+	</div>
+</div>
+<script type="text/javascript" src='../../../js/jquery-2.1.1.min.js'></script>
+<script src="../../../layui/layui.js" charset="utf-8"></script>
+<!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
+<script>
+	var utilExt,ue;
+	 layui.config({
+		base : '../../../js/unit/'
+	});
+    layui.use(['form', 'layedit', 'laydate','upload','layer','utilExt'], function(){
+        var form = layui.form
+                ,layer = layui.layer
+                ,layedit = layui.layedit
+                ,laydate = layui.laydate;
+        var $ = layui.jquery
+                var upload = layui.upload;
+        utilExt=layui.utilExt;
+        ue= UE.getEditor('myEditor');
+       /*  ue.addListener( 'ready', function( editor ) {
+     	   //ue.setContent('1');
+        }); */
+        //获取分类
+        getArticlesClass();
+       var aid = utilExt.getUrlParam('articlesId'); //为null 添加，有值就修改
+       if(aid){
+    	   getArticles();//回显信息
+       }
+        //监听提交
+        $('#btnSave').click(function(){
+        	var flag = yanzheng();
+        	if(flag==false){
+        		return;
+        	}
+        	var data = utilExt.getParamValues('p_','#js_form_box');
+        	data.content1 = UE.getEditor('myEditor').getContent();
+        	data.contentIcon = $('#p_contentIcon').attr('src'); //显示图标
+        	/* data.content1Img = $('#p_content1Img').attr('src'); //图片1，下面依次类推
+        	data.content2Img = $('#p_content2Img').attr('src');
+        	data.content3Img = $('#p_content3Img').attr('src');
+        	data.content4Img = $('#p_content4Img').attr('src');
+        	data.content5Img = $('#p_content5Img').attr('src'); */
+        	var Url = '../../../articles/addArticles.do';
+        	if(aid){
+        		console.log('aid='+aid)
+        		Url='../../../articles/updateArticles.do';
+        		data.articlesId = aid;
+        	}
+        	$.ajax({
+    			url:Url,
+    			data:data,
+    			type:'post',
+    			success:function(res){
+    				if(res>0){
+    					var ms = aid ? '修改成功':'添加成功';
+    					utilExt.successMsg(ms, function() {
+							layer.closeAll();
+							if(aid){
+								parent.location.href='articles.html';
+							}else{
+								location.href='articles.html';
+							}
+					});
+    				}else{
+    					var ms = aid ? '修改失败':'添加失败';
+    					layer.alert(ms);
+    				}
+    			}
+        	   ,error:function(res){
+        		   console.log(res)
+        		   if(res.readyState=='0'){
+        			   utilExt.successMsg("保存成功！！！", function() {
+							layer.closeAll();
+							if(aid){
+								parent.location.href='articles.html';
+							}else{
+								location.href='articles.html';
+							}
+					});
+        		   }else{
+   						layer.msg('保存失败',{icon:2});
+        		   }
+        	   }
+    		});
+        })
+/* --------------------------上传图片---------------------------------------- */
+       //普通图片上传图标
+        var uploadInst = upload.render({
+            elem: '#chose'
+            ,url: '../../../articles/saveArticlesIcon.do'
+           	,auto: true //选择文件后不自动上传
+        	,done: function(res){
+        	      //上传完毕回调
+        		 $('#p_contentIcon').attr('src', res.src);
+        		 layer.msg('上传成功',{icon:1});
+        	}
+           
+        });
+/*         //内容图片1
+        var uploadInst = upload.render({
+            elem: '#choseImg1'
+            ,url: '../../../articles/saveArticlesContentImg1.do'
+           	,auto: true //选择文件后不自动上传
+        	,done: function(res){
+        	      //上传完毕回调
+        		 $('#p_content1Img').attr('src', res.src);
+        		 layer.msg('上传成功',{icon:1});
+        	}
+           
+        });
+        //内容图片1
+        var uploadInst = upload.render({
+            elem: '#choseImg2'
+            ,url: '../../../articles/saveArticlesContentImg2.do'
+           	,auto: true //选择文件后不自动上传
+        	,done: function(res){
+        	      //上传完毕回调
+        		 $('#p_content2Img').attr('src', res.src);
+        		 layer.msg('上传成功',{icon:1});
+        	}
+           
+        });
+        //内容图片3
+        var uploadInst = upload.render({
+            elem: '#choseImg3'
+            ,url: '../../../articles/saveArticlesContentImg3.do'
+           	,auto: true //选择文件后不自动上传
+        	,done: function(res){
+        	      //上传完毕回调
+        		 $('#p_content3Img').attr('src', res.src);
+        		 layer.msg('上传成功',{icon:1});
+        	}
+           
+        });
+        //内容图片1
+        var uploadInst = upload.render({
+            elem: '#choseImg4'
+            ,url: '../../../articles/saveArticlesContentImg4.do'
+           	,auto: true //选择文件后不自动上传
+        	,done: function(res){
+        	      //上传完毕回调
+        		 $('#p_content4Img').attr('src', res.src);
+        		 layer.msg('上传成功',{icon:1});
+        	}
+           
+        });
+        //内容图片5
+        var uploadInst = upload.render({
+            elem: '#choseImg5'
+            ,url: '../../../articles/saveArticlesContentImg5.do'
+           	,auto: true //选择文件后不自动上传
+        	,done: function(res){
+        	      //上传完毕回调
+        		 $('#p_content5Img').attr('src', res.src);
+        		 layer.msg('上传成功',{icon:1});
+        	}
+           
+        }); */
+  /* ------------------------------------------------------------ */
+       // 获取分类信息
+       function getArticlesClass(){
+    	   $.ajax({
+    		  url:'../../../articlesClass/getAllArticlesClass.do',
+    		  type:'post',
+    		  success:function(res){
+  	     		$.each(res,function(i,item){
+  	     			$('#p_classId').append("<option value='"+item.class_id+"'>"+item.class_name+"</option>");
+  	     		});
+  	     		form.render('select');
+  	     	}
+    	   });
+       }
+       // 获取单条信息
+       function getArticles(){
+    	   var data={'articlesId':aid}
+    	   var classId = $("#p_classId").val();
+    	   $.ajax({
+    		  url:'../../../articles/queryArticlesById.do',
+    		  type:'post',
+    		  data:data,
+    		  success:function(res){
+    			    utilExt.setParamValues(res,'#js_form_box')
+    			    $('#p_contentIcon').attr('src',res.contentIcon);
+    	             ue.addListener( 'ready', function( editor ) {
+    	            	UE.getEditor('myEditor').setContent(res.content1);
+    	              }); 
+    	        	$('#p_classId').siblings().find('dd[lay-value="' + res.classId + '"]').click();
+    	        	$('#p_isTj').siblings().find('dd[lay-value="' + res.isTj + '"]').click();
+    	        	
+  	     	   }
+    	   });
+       }
+  //验证
+      function yanzheng(){
+	    var name = $("#p_cententTitle").val();
+	    if(name==''){
+	    	layer.msg('文章标题不能为空',{icon:2});
+	    	return false;
+	    }
+	    var fenlei = $("#p_classId").val();
+	    if(fenlei==0){
+	    	layer.msg('请选择分类',{icon:2});
+	    	return false;
+	    }
+	    var zs = $('#p_contentIcon').attr('src');
+	    if(zs=='' || zs==null){
+	    	layer.msg('请上传展示图片',{icon:2});
+	    	return false;
+	    }
+     }
+      
+
+    });
+</script>
+
+</body>
+</html>

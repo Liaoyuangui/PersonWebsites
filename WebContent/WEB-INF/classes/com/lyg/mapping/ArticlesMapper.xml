@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lyg.dao.ArticlesMapper" >
+  <resultMap id="BaseResultMap" type="com.lyg.entitys.Articles" >
+    <id column="articles_id" property="articlesId" jdbcType="INTEGER" />
+    <result column="class_id" property="classId" jdbcType="INTEGER" />
+    <result column="centent_title" property="cententTitle" jdbcType="VARCHAR" />
+    <result column="content_icon" property="contentIcon" jdbcType="VARCHAR" />
+    <result column="content1" property="content1" jdbcType="VARCHAR" />
+    <result column="content1_img" property="content1Img" jdbcType="VARCHAR" />
+    <result column="content2" property="content2" jdbcType="VARCHAR" />
+    <result column="content2_img" property="content2Img" jdbcType="VARCHAR" />
+    <result column="content3" property="content3" jdbcType="VARCHAR" />
+    <result column="content3_img" property="content3Img" jdbcType="VARCHAR" />
+    <result column="content4" property="content4" jdbcType="VARCHAR" />
+    <result column="content4_img" property="content4Img" jdbcType="VARCHAR" />
+    <result column="content5" property="content5" jdbcType="VARCHAR" />
+    <result column="content5_img" property="content5Img" jdbcType="VARCHAR" />
+    <result column="add_time" property="addTime" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="is_used" property="isUsed" jdbcType="INTEGER" />
+     <result column="is_tj" property="isTj" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    articles_id, class_id, centent_title, content_icon, content1, content1_img, content2, 
+    content2_img, content3, content3_img, content4, content4_img, content5, content5_img, 
+    add_time, update_time, user_id, is_used ,is_tj
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from articles
+    where articles_id = #{articlesId,jdbcType=INTEGER} and is_used =1
+  </select>
+  
+  <!-- 查询所有的 -->
+  <select id="queryAllArticle" resultType="map" parameterType="com.lyg.entitys.Articles">
+    SELECT a.* ,c.class_name,u.login_name
+    FROM articles a,articles_class c,users u
+    WHERE 1=1 AND a.class_id = c.class_id AND a.user_id = u.id AND a.is_used =1 AND c.is_used =1
+    <if test="cententTitle != null" >
+      and  a.centent_title=#{cententTitle}
+     </if>
+     <if test="addTime != null" >
+      and  a.add_time=#{addTime}
+     </if>
+     <if test="classId != null" >
+      and  a.class_id=#{classId}
+     </if>
+  </select>
+   <!-- 查询推荐文章  -->
+  <select id="queryTjArticles" resultMap="BaseResultMap">
+        select 
+	    <include refid="Base_Column_List" />
+	    from articles
+	    where is_tj = 1 and is_used =1
+  </select>
+  
+  <!-- 查询最新文章，按时间排序  -->
+  <select id="queryNewArticles" resultMap="BaseResultMap">
+      SELECT 
+	   a.*
+	  FROM articles a
+	  WHERE 1 = 1 AND is_used =1 ORDER BY a.add_time desc
+  </select>
+  
+  <!-- 查询上一篇 -->
+  <select id="getUpArticles" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+     SELECT a.*  FROM articles  a
+	 WHERE a.articles_id = (SELECT MAX(b.articles_id) FROM articles b 
+	       WHERE b.articles_id &lt; #{articlesId,jdbcType=INTEGER} )
+  </select>
+  
+  <!-- 查询下一篇 -->
+  <select id="getDownArticles" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    SELECT a.*  FROM articles a
+     WHERE  a.articles_id = (SELECT MIN(b.articles_id) FROM articles b 
+           WHERE b.articles_id > #{articlesId,jdbcType=INTEGER} )
+  </select>
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from articles
+    where articles_id = #{articlesId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lyg.entitys.Articles" >
+    insert into articles (articles_id, class_id, centent_title, 
+      content_icon, content1, content1_img, 
+      content2, content2_img, content3, 
+      content3_img, content4, content4_img, 
+      content5, content5_img, add_time, 
+      update_time, user_id, is_used ,is_tj
+      )
+    values (#{articlesId,jdbcType=INTEGER}, #{classId,jdbcType=INTEGER}, #{cententTitle,jdbcType=VARCHAR}, 
+      #{contentIcon,jdbcType=VARCHAR}, #{content1,jdbcType=VARCHAR}, #{content1Img,jdbcType=VARCHAR}, 
+      #{content2,jdbcType=VARCHAR}, #{content2Img,jdbcType=VARCHAR}, #{content3,jdbcType=VARCHAR}, 
+      #{content3Img,jdbcType=VARCHAR}, #{content4,jdbcType=VARCHAR}, #{content4Img,jdbcType=VARCHAR}, 
+      #{content5,jdbcType=VARCHAR}, #{content5Img,jdbcType=VARCHAR}, #{addTime,jdbcType=VARCHAR}, 
+      #{updateTime,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}, #{isUsed,jdbcType=INTEGER} ,#{isTj,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.lyg.entitys.Articles" >
+    insert into articles
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="articlesId != null" >
+        articles_id,
+      </if>
+      <if test="classId != null" >
+        class_id,
+      </if>
+      <if test="cententTitle != null" >
+        centent_title,
+      </if>
+      <if test="contentIcon != null" >
+        content_icon,
+      </if>
+      <if test="content1 != null" >
+        content1,
+      </if>
+      <if test="content1Img != null" >
+        content1_img,
+      </if>
+      <if test="content2 != null" >
+        content2,
+      </if>
+      <if test="content2Img != null" >
+        content2_img,
+      </if>
+      <if test="content3 != null" >
+        content3,
+      </if>
+      <if test="content3Img != null" >
+        content3_img,
+      </if>
+      <if test="content4 != null" >
+        content4,
+      </if>
+      <if test="content4Img != null" >
+        content4_img,
+      </if>
+      <if test="content5 != null" >
+        content5,
+      </if>
+      <if test="content5Img != null" >
+        content5_img,
+      </if>
+      <if test="addTime != null" >
+        add_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="isUsed != null" >
+        is_used,
+      </if>
+       <if test="isTj != null" >
+        is_tj,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="articlesId != null" >
+        #{articlesId,jdbcType=INTEGER},
+      </if>
+      <if test="classId != null" >
+        #{classId,jdbcType=INTEGER},
+      </if>
+      <if test="cententTitle != null" >
+        #{cententTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="contentIcon != null" >
+        #{contentIcon,jdbcType=VARCHAR},
+      </if>
+      <if test="content1 != null" >
+        #{content1,jdbcType=VARCHAR},
+      </if>
+      <if test="content1Img != null" >
+        #{content1Img,jdbcType=VARCHAR},
+      </if>
+      <if test="content2 != null" >
+        #{content2,jdbcType=VARCHAR},
+      </if>
+      <if test="content2Img != null" >
+        #{content2Img,jdbcType=VARCHAR},
+      </if>
+      <if test="content3 != null" >
+        #{content3,jdbcType=VARCHAR},
+      </if>
+      <if test="content3Img != null" >
+        #{content3Img,jdbcType=VARCHAR},
+      </if>
+      <if test="content4 != null" >
+        #{content4,jdbcType=VARCHAR},
+      </if>
+      <if test="content4Img != null" >
+        #{content4Img,jdbcType=VARCHAR},
+      </if>
+      <if test="content5 != null" >
+        #{content5,jdbcType=VARCHAR},
+      </if>
+      <if test="content5Img != null" >
+        #{content5Img,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null" >
+        #{addTime,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="isUsed != null" >
+        #{isUsed,jdbcType=INTEGER},
+      </if>
+      <if test="isTj != null" >
+        #{isTj,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lyg.entitys.Articles" >
+    update articles
+    <set >
+      <if test="classId != null" >
+        class_id = #{classId,jdbcType=INTEGER},
+      </if>
+      <if test="cententTitle != null" >
+        centent_title = #{cententTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="contentIcon != null" >
+        content_icon = #{contentIcon,jdbcType=VARCHAR},
+      </if>
+      <if test="content1 != null" >
+        content1 = #{content1,jdbcType=VARCHAR},
+      </if>
+      <if test="content1Img != null" >
+        content1_img = #{content1Img,jdbcType=VARCHAR},
+      </if>
+      <if test="content2 != null" >
+        content2 = #{content2,jdbcType=VARCHAR},
+      </if>
+      <if test="content2Img != null" >
+        content2_img = #{content2Img,jdbcType=VARCHAR},
+      </if>
+      <if test="content3 != null" >
+        content3 = #{content3,jdbcType=VARCHAR},
+      </if>
+      <if test="content3Img != null" >
+        content3_img = #{content3Img,jdbcType=VARCHAR},
+      </if>
+      <if test="content4 != null" >
+        content4 = #{content4,jdbcType=VARCHAR},
+      </if>
+      <if test="content4Img != null" >
+        content4_img = #{content4Img,jdbcType=VARCHAR},
+      </if>
+      <if test="content5 != null" >
+        content5 = #{content5,jdbcType=VARCHAR},
+      </if>
+      <if test="content5Img != null" >
+        content5_img = #{content5Img,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null" >
+        add_time = #{addTime,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="isUsed != null" >
+        is_used = #{isUsed,jdbcType=INTEGER},
+      </if>
+      <if test="isTj != null" >
+        is_tj = #{isTj,jdbcType=INTEGER},
+      </if>
+    </set>
+    where articles_id = #{articlesId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lyg.entitys.Articles" >
+    update articles
+    set class_id = #{classId,jdbcType=INTEGER},
+      centent_title = #{cententTitle,jdbcType=VARCHAR},
+      content_icon = #{contentIcon,jdbcType=VARCHAR},
+      content1 = #{content1,jdbcType=VARCHAR},
+      content1_img = #{content1Img,jdbcType=VARCHAR},
+      content2 = #{content2,jdbcType=VARCHAR},
+      content2_img = #{content2Img,jdbcType=VARCHAR},
+      content3 = #{content3,jdbcType=VARCHAR},
+      content3_img = #{content3Img,jdbcType=VARCHAR},
+      content4 = #{content4,jdbcType=VARCHAR},
+      content4_img = #{content4Img,jdbcType=VARCHAR},
+      content5 = #{content5,jdbcType=VARCHAR},
+      content5_img = #{content5Img,jdbcType=VARCHAR},
+      add_time = #{addTime,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=INTEGER},
+      is_used = #{isUsed,jdbcType=INTEGER}
+      is_tj = #{isTj,jdbcType=INTEGER}
+    where articles_id = #{articlesId,jdbcType=INTEGER}
+  </update>
+  <!-- 删除 -->
+  <update id="deleteArticles" parameterType="java.lang.Integer">
+      update articles a set a.is_used = 0 where articles_id=#{articlesId,jdbcType=INTEGER}
+  </update>
+  
+</mapper>

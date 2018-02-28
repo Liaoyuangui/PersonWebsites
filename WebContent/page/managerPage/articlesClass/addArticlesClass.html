@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+ <title></title>
+    <link rel="stylesheet" href="../../../layui/css/layui.css">
+    <style>
+        .layui-upload-list{
+            width: 150px;
+            height: 150px;
+            border: 1px solid #ccc; 
+        }
+        .layui-upload-list .layui-upload-img{width:150px;height: 150px;}
+        .layui-upload{width:400px;height: 200px;margin-top: 10px;margin-left: 110px;}
+    </style>
+</head>
+<body>
+
+<div class="layui-form"  enctype="multipart/form-data" id="js_form_box">
+     <div class="layui-form-item">
+     <label class="layui-form-label">分类图标：</label>
+     <div class="layui-upload">
+        <input id="chose" type="file" name="chose"  lay-type="file" >
+       <!--  <button type="button" class="layui-btn" id="uploadTx">确定上传</button> -->
+        <div class="layui-upload-list">
+            <img class="layui-upload-img" name="classIcon" id="classIcon" >
+            <p id="userText"></p>
+        </div>
+     </div>
+    </div>
+	 <div class="layui-form-item">
+	   <div class="layui-inline">
+	        <label class="layui-form-label">分类名称</label>
+	        <div class="layui-input-block">
+	            <input type="text" name="className" required  lay-verify="required" id="p_className" autocomplete="off" placeholder="请输入标题" class="layui-input">
+	        </div>
+	   </div>
+    </div>
+    <div class="layui-form-item">
+	   <div class="layui-inline">
+	        <label class="layui-form-label">背景颜色</label>
+	        <div class="layui-input-block">
+	            <input type="text" lay-verify="required" required  id="p_bgStyle" autocomplete="off" placeholder="只输入颜色即可" class="layui-input">
+	        </div>
+	   </div>
+    </div>
+    <div class="layui-inline">
+	        <label class="layui-form-label">首页显示</label>
+	        <div class="layui-input-block" >
+	            <select name="p_isShow" lay-filter="p_isShow" id="p_isShow">
+	              <option value='0'></option>
+	              <option value='0'>否</option>
+	              <option value='1'>是</option>
+	            </select>
+	        </div>
+	 </div>
+ 	<!--  其他   ：personOthers-->
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn"  id='btnSave'>立即提交</button>
+            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src='../../../js/jquery-2.1.1.min.js'></script>
+<script src="../../../layui/layui.js" charset="utf-8"></script>
+<!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
+<script>
+	var utilExt;
+	 layui.config({
+		base : '../../../js/unit/'
+	});
+    layui.use(['form', 'layedit', 'laydate','upload','layer','utilExt'], function(){
+        var form = layui.form
+                ,layer = layui.layer
+                ,layedit = layui.layedit
+                ,laydate = layui.laydate;
+        var $ = layui.jquery
+                var upload = layui.upload;
+        utilExt=layui.utilExt;
+       var cid = utilExt.getUrlParam('classId'); //为null 添加，有值就修改
+       if(cid){
+    	   getArticlesClass();//回显信息
+       }
+        //监听提交
+        $('#btnSave').click(function(){
+        	var yz = yanzheng();
+        	if(yz == false){
+        		return;
+        	}
+        	var data = utilExt.getParamValues('p_','#js_form_box');
+        	data.classIcon = $('#classIcon').attr('src');
+        	var Url = '../../../articlesClass/addArticlesClass.do';
+        	if(cid){
+        		Url='../../../articlesClass/updateArticlesClass.do'
+        		data.classId = cid;
+        	}
+        	$.ajax({
+    			url:Url,
+    			data:data,
+    			type:'post',
+    			success:function(res){
+    				console.log(res)
+    				if(res>0){
+    					var ms = cid ? '修改成功':'添加成功';
+    					utilExt.successMsg(ms, function() {
+								layer.closeAll();
+								if(cid){
+									parent.location.href='articlesClass.html';
+								}else{
+									location.href='articlesClass.html';
+								}
+						});
+    				}else{
+    					var ms = cid ? '修改失败':'添加失败';
+    					layer.alert(ms,{icon:2});
+    				}
+    			}
+        	   ,error:function(res){
+        		   console.log(res)
+        		   if(res.readyState=='0'){
+        			   utilExt.successMsg("保存成功！！！", function() {
+							layer.closeAll();
+							if(cid){
+								parent.location.href='articlesClass.html';
+							}else{
+								location.href='articlesClass.html';
+							}
+					});
+        		   }else{
+   						layer.msg('保存失败',{icon:2});
+        		   }
+        	   }
+    		});
+        })
+
+       //普通图片上传
+        var uploadInst = upload.render({
+            elem: '#chose'
+            ,url: '../../../articlesClass/saveArticlesClassImg.do'
+           	,auto: true //选择文件后不自动上传
+            /* ,before: function(obj){
+                //预读本地文件示例，不支持ie8
+                obj.preview(function(index, file, result){
+                    $('#userTx').attr('src', result); //图片链接（base64）
+                });
+            } */
+        	,done: function(res){
+        	      //上传完毕回调
+        		 $('#classIcon').attr('src', res.src);
+        		 layer.msg('上传成功',{icon:1});
+        	}
+           
+        });
+       //根据id 获取分类信息
+       function getArticlesClass(){
+    	   var data={'classId':cid}
+    	   $.ajax({
+    		  url:'../../../articlesClass/getArticlesClassById.do',
+    		  data:data,
+    		  type:'post',
+    		  success:function(res){
+    			  utilExt.setParamValues(res,'#js_form_box')
+    			  $('#classIcon').attr('src', res.classIcon);
+    			  $('#p_isShow').siblings().find('dd[lay-value="' + res.isShow + '"]').click();
+    		  }
+    	   });
+       }
+      
+       //验证输入框
+       function yanzheng(){
+    	   var title = $("#p_className").val();
+    	   if(title.trim()==""){
+    		   layer.alert('分类名称不能为空！', {icon: 2});
+    		   return false;
+    	   }
+    	   var bgColor = $("#p_bgStyle").val();
+    	   if(bgColor.trim()==""){
+    		   layer.alert("请输入背景颜色",{icon:2});
+    		   return false;
+    	   }
+    	   return true;
+       }
+
+    });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,377 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="baidu-site-verification" content="ddede2d984cd7d2757a991768f939ede"/>
+<link rel="shortcut icon" type="image/x-icon" href="images/ico.ico" media="screen" />
+<title>首页--放肆的青春诠释了悲伤</title>
+<meta name="keywords" content="个人主页" />
+<meta name="description" content="" />
+<link rel="stylesheet" href="layui/css/layui.css">
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="css/index.css"/>
+<link rel="stylesheet" href="css/style.css"/>
+<script type="text/javascript" src="http://qzonestyle.gtimg.cn/qzone/openapi/qc_loader.js" data-appid="101436925" data-redirecturi="http://www.liaoyuangui.com/index.html"  charset="utf-8"></script>
+<script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="js/jquery.SuperSlide.2.1.1.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="layui/layui.js"></script>
+<!--[if lt IE 9]>
+<script src="js/html5.js"></script>
+<![endif]-->
+<style>
+    *{margin: 0;padding: 0;}
+    #header{margin-top: -20px;}
+    #nav{    height: 50px; padding: 10px 0 20px 0px;}
+    #headSign{margin-top: -20px;}
+    #footer .p1{margin: -10px 0 0 0;}
+    .links{
+            width: 260px;
+            border: 1px solid #ccc;
+            margin-top: 5px;
+            background: #fff;
+        }
+        .links h2{
+            font-size: 16px;
+            color: #444;
+            padding: 5px 0px 2px 5px;
+            border-bottom: 1px solid red;
+        }
+        .links ul li a{
+            cursor: pointer;
+            margin-left: 10px;
+            text-decoration: none;
+        }
+        .links ul li{
+            height: 30px;
+            line-height: 30px;
+        }
+       #loading{
+            width: 100px;
+	    height: 100px;
+	    margin: 300px auto;
+	    
+       }
+      </style>
+</head>
+
+<body>
+    <!--header start-->
+	
+    <div id="header">
+      <div id="logIn_box">
+	    <span id="qqLoginBtn" class="qq_icon"></span>&nbsp;|&nbsp;<a href="https://ssl.zc.qq.com/v3/index-chs.html" target="_bank" class="register">注册</a>
+	  </div>
+      <img id="headImgUrl" alt="" src="images/welcome.png" width="300" height="50" style="margin: 20px auto;">
+      <p id="headSign">不要在哀伤的诗句里告诉我：人生不过是一场幻梦！”灵魂睡着了，就等于死了，事物的真相与外表不同。生是真切的！人生是实在的！它的归宿决不是荒坟；</p>    
+    </div>
+     <!--header end-->
+    <!--nav-->
+     <div id="nav">
+        <ul>
+         <li><a href="index.html">首页</a></li>
+         <li><a href="page/showPage/about.jsp">关于我</a></li>
+         <li><a href="page/showPage/learn.html">学海无涯</a></li>
+        <!--  <li><a href="page/showPage/dynamics.html">个人动态</a></li> -->
+         <li><a href="page/showPage/personalDiary.html">个人日记</a></li>
+         <li><a href="page/showPage/media.html">媒体展示</a></li>
+         <li><a href="page/showPage/message.html">留言板</a></li>
+         <div class="clear"></div>
+        </ul>
+      </div>
+       <!--nav end-->
+    <!--轮播图-->
+<!--     <div id="myCarousel" class="carousel slide">
+        轮播（Carousel）指标
+        <ol class="carousel-indicators">
+            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#myCarousel" data-slide-to="1"></li>
+            <li data-target="#myCarousel" data-slide-to="2"></li>
+        </ol>
+        轮播（Carousel）项目
+        <div class="carousel-inner">
+            <div class="item active">
+                <img id="indexLbUrl1" src="images/1/4.jpg" alt="First slide">
+                <div class="carousel-caption">1</div>
+            </div>
+            <div class="item">
+                <img id="indexLbUrl2" src="images/1/5.jpg" alt="Second slide">
+                <div class="carousel-caption">2</div>
+            </div>
+            <div class="item">
+                <img id="indexLbUrl3" src="images/1/6.jpg" alt="Third slide">
+                <div class="carousel-caption">3</div>
+            </div>
+        </div>
+        轮播（Carousel）导航
+        <a class="carousel-control left" href="#myCarousel"
+           data-slide="prev">&lsaquo;
+        </a>
+        <a class="carousel-control right" href="#myCarousel"
+           data-slide="next">&rsaquo;
+        </a>
+    </div> -->
+    <div class="layui-carousel" id="myCarousel">
+		  <div carousel-item class="carousel-item">
+		    <div> <img id="indexLbUrl1" src="" alt="First slide"></div>
+		    <div><img id="indexLbUrl2" src="" alt="Second slide"></div>
+		    <div><img id="indexLbUrl3" src="" alt="Third slide"></div>
+		  </div>
+    </div>
+    
+    <!--content start-->
+    <div id="content">
+         <!--left-->
+         <div class="left" id="c_left">
+           <div class="s_tuijian">
+           <h2>文章<span>推荐</span></h2>
+           </div>
+          <div class="content_text" id='content_text'>
+             <div  id="loading"><img alt="内容加载中..." src="images/loading.gif"></div>
+          </div>
+        
+      <!--      ---------------        关于我           -----------          -->  
+         </div>
+         <!--left end-->
+         <!--right-->
+         <div class="right" id="c_right">
+          <div class="s_about">
+          <h2>关于我<a href="page/showPage/about.jsp">更多>></a></h2>
+           <img id="person_tx" src="" width="230" height="230" alt="个人头像"/>
+           <p id='person_name'></p>
+           <p id='person_work'></p>
+           <p id='person_address'></p>
+           <p>
+            <a target=blank href=tencent://message/?uin=1129896968&Site=lyg&Menu=yes><span class="left b_1" style="margin: 0"></span></a><a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=9a9e02cd8b34796871514359bae9521d53a793fce9e46794b69d18b43fcf540c"><img border="0" src="//pub.idqqimg.com/wpa/images/group.png" alt="難忘的、壹天" title="難忘的、壹天"></a>
+           <div class="clear"></div>
+           </p>
+          </div>
+          <!--栏目分类-->
+	        <div class="lanmubox">
+	            <div class="hd">
+	                <ul><li>精心推荐</li><li>最新文章</li></ul>
+	            </div>
+	            <div class="bd">
+	                <ul id='jxtj'>
+	                </ul>
+	                <ul id='zxwz'>
+	                </ul>
+	            </div>
+	        </div>
+           <!--end-->
+           
+          <!-- ---------------------------------关于我结束------------------ --> 
+           <!--end-->
+          <!--友情链接-->
+	        <div class="links">
+	            <h2>学习链接</h2>
+	            <ul class="ulLink">
+	                <li><a href="https://www.w3cschool.cn/" target="_blank">W3cSchool学技术，查资料</a></li>
+	                <li><a href="https://tomcat.apache.org/" target="_blank">Apache Tomcat下载</a></li>
+	                <li><a href="https://dev.mysql.com/downloads/mysql/" target="_blank">Mysql数据库下载</a></li>
+	                <li><a href="http://oschina.net" target="_blank">国内最好的开源社区</a></li>
+	                <li><a href="http://segmentfault.com" target="_blank">国内版的stackoverflow</a></li>
+	                <li><a href="http://csdn.net" target="_blank">CSDN不止于代码</a></li>
+	            </ul>
+	        </div>
+         </div>
+         <!--right end-->
+         <div class="clear"></div>
+    </div>
+    <!--content end-->
+       <!--content end-->
+    <!--footer-->
+    <div id="footer">
+       <p id="footLabel">The Boy Who Harnessed The Wind Liaoyuangui</p>
+       <p id="footLabel1" class="p1">联系方式:1129696968@qq.com</p>
+    </div>
+    <!--footer end-->
+    
+   <!--  <div>
+       <div class='floatImg123'><img alt='' src='/PersonWebsites/images/floatImg/123.gif'></div>
+	   <div class='floatImg111'><img alt='' src='/PersonWebsites/images/floatImg/111.gif'></div>
+    </div> -->
+    
+    <script type="text/javascript">jQuery(".lanmubox").slide({easing:"easeOutBounce",delayTime:400});</script>
+    <script  type="text/javascript" src="js/nav.js"></script>
+    <script type="text/javascript" src="js/content/theme.js"></script>
+    
+<!--     <script type="text/javascript" src="http://qzonestyle.gtimg.cn/qzone/openapi/qc_loader.js" data-appid="101436925" data-redirecturi="http://www.liaoyuangui.com" charset="utf-8"></script> -->
+</body>
+<script>
+layui.use('carousel', function(){
+	  var carousel = layui.carousel;
+	  //轮播
+	  carousel.render({
+	    elem: '#myCarousel'
+	    ,width: '1000px' //设置容器宽度
+	    ,arrow: 'hover' //鼠标悬停显示箭头
+	    ,anim: 'fade' //切换动画方式，默认从左向右
+	    ,interval:'6000' //间隔时间
+	  });
+	  
+	});
+    getPersonInfo();
+    function getPersonInfo(){
+    	$.ajax({
+    		url:'users/selectUserAndPersonByUserId.do',
+    		type:'post',
+    		data:{"userId":1},
+    		success:function(res){
+    			$("#person_tx").attr("src",res.result.person_tx);
+    			$("#person_name").html("姓名："+res.result.person_name);
+    			$("#person_work").html("职业："+res.result.person_work);
+    			$("#person_explanin").html("简介:"+res.result.person_explanin);
+    			$("#person_address").html("简介:"+res.result.person_address);
+    			
+    		}
+    		
+    	});
+    }
+    
+</script>
+
+
+<script>
+    
+     getTjArticles();
+     getNewArticles();
+     //查询推荐的文章
+     function getTjArticles(){
+     	   $.ajax({
+     		  url:'articles/queryTjArticles.do',
+     		  type:'post',
+     		  success:function(res){
+     			 $.each(res,function(i,item){
+     				if(i<5){
+     					 $("#jxtj").append("<li><a href='page/showPage/articleDetails.html?aId="+item.articlesId+"' title=''>"+item.cententTitle+"</a></li>");
+     				} 
+     			 });
+     		  }
+     	   });
+     }
+     //查询最新的文章
+     function getNewArticles(){
+     	   $.ajax({
+     		  url:'articles/queryNewArticles.do',
+     		  type:'post',
+     		  success:function(res){
+     			  $.each(res,function(i,item){
+     					if(i<5){
+     						 $("#zxwz").append("<li><a href='page/showPage/articleDetails.html?aId="+item.articlesId+"' title=''>"+item.cententTitle+"</a></li>");
+     					} 
+     				 });
+     		  }
+     	   });
+     }
+     //打开原图
+     function getImgInfo(t){
+     	window.open(t.src)
+     }
+
+</script>
+ <script>
+ var layui;
+         layui.use(['element','laypage', 'layer'], function(){
+             var $ = layui.jquery
+             ,element = layui.element; //Tab的切换功能，切换事件监听等，需要依赖element模块
+             var laypage = layui.laypage
+                     ,layer = layui.layer;
+             getArticlesInfo();
+             function  getArticlesInfo(){
+                 var str1="";
+            	 $.ajax({
+            		url:'articles/queryTjArticles.do',
+            		type:'post',
+            		success:function(data){
+            			//console.log(data)
+            			  //分页完整功能
+                        if(data.length==0){
+                        	 $("#content_text").html("暂无数据...");
+           			    }else{
+           			  	$.each(data,function(index,item){
+           			  		 if(index<6&&index>0){ //显示6条数据
+         	    		             str1 += "<div class='wz' >"+
+         	    		                     " <h3><a href='#' title=''>"+item.cententTitle+"</a></h3>"+
+         	    		                     "<dl>"+
+         	    		                         " <dt><img src='"+item.contentIcon+"' width='200'  height='123' alt='显示图片' onclick='getImgInfo(this)'></dt>"+
+         	    		                         "<dd>"+
+         	    		                             " <div class='dd_text_1'>"+item.content1+"</div>"+
+         	    		                             " <p class='dd_text_2'>"+
+         	    		                             " <span class='left sj'>"+item.addTime+"</span>"+
+         	    		                             " <span class='left yd'><a href='page/showPage/articleDetails.html?aId="+item.articlesId+"' target='_blank' title='阅读全文'>阅读全文</a>"+
+         	    		                             " </span>"+
+         	    		                             " <div class='clear'></div>"+
+         	    		                             " </p>"+
+         	    		                         " </dd>"+
+         	    		                         " <div class='clear'></div>"+
+         	    		                     " </dl>"+
+         	    		                 " </div>"
+     	    			      }
+     	    			 });
+           			 $("#content_text").html(str1);
+           			  	
+           			    }
+            		}
+            	 });
+             }
+             
+          
+
+         });
+ </script>
+ <!-- qq login  -->
+ <script type="text/javascript">
+      //调用QC.Login方法，指定btnId参数将按钮绑定在容器节点中
+      QC.Login({
+          //btnId：插入按钮的节点id，必选
+          btnId:"qqLoginBtn",    
+          //用户需要确认的scope授权项，可选，默认all
+          scope:"all",
+          //按钮尺寸，可用值[A_XL| A_L| A_M| A_S|  B_M| B_S| C_S]，可选，默认B_S
+          size: "B_M"
+      }, function(reqData, opts){//登录成功
+   	   var nc = reqData.nickname;
+          var tx = reqData.figureurl;
+          var data  = {"nickname":nc,"figureurl":tx}
+          $.ajax({
+       	   url:"loginController/saveSession.do",
+       	   data:data,
+       	   type:"post",
+       	   success:function(res){
+       		   if(res=="success"){
+       			   //根据返回数据，更换按钮显示状态方法
+       	           var dom = document.getElementById(opts['btnId']),
+       	           _logoutTemplate=[
+       	                //头像
+       	                '<span><img src="{figureurl}" class="{size_key}"/></span>',
+       	                //昵称
+       	                '<span>{nickname}</span>',
+       	                //退出
+       	                '<span><a href="javascript:QC.Login.signOut();">退出</a></span>'    
+       	           ].join("");
+       	           dom && (dom.innerHTML = QC.String.format(_logoutTemplate, {
+       	               nickname : QC.String.escHTML(reqData.nickname), //做xss过滤
+       	               figureurl : reqData.figureurl
+       	           })); 
+       	           
+       		   }
+       	   }
+          });
+         
+      }, function(opts){//注销成功
+   	   $.ajax({
+   		   url:"loginController/exitLogin.do",
+   		   type:"post",
+   		   success:function(res){
+   			   if(res=="success"){
+   				   layui.alert('QQ登录 注销成功');
+   			   }
+   		   }
+   	   });
+          
+      }
+   );
+   </script> 
+
+</html>

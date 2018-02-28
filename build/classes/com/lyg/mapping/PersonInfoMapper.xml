@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lyg.dao.PersonInfoMapper" >
+
+  <cache eviction="FIFO" flushInterval="600000" size="512" readOnly="true"/>
+
+  <resultMap id="BaseResultMap" type="com.lyg.entitys.PersonInfo" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="person_name" property="personName" jdbcType="VARCHAR" />
+    <result column="person_sex" property="personSex" jdbcType="VARCHAR" />
+    <result column="person_hobby" property="personHobby" jdbcType="VARCHAR" />
+    <result column="person_address" property="personAddress" jdbcType="VARCHAR" />
+    <result column="person_sign" property="personSign" jdbcType="VARCHAR" />
+    <result column="person_explanin" property="personExplanin" jdbcType="VARCHAR" />
+    <result column="person_work" property="personWork" jdbcType="VARCHAR" />
+    <result column="person_tel" property="personTel" jdbcType="VARCHAR" />
+    <result column="person_qq" property="personQq" jdbcType="VARCHAR" />
+    <result column="person_tx" property="personTx" jdbcType="VARCHAR" />
+    <result column="person_others" property="personOthers" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="is_used" property="isUsed" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, person_name, person_sex, person_hobby, person_address, person_sign, person_explanin, 
+    person_work, person_tel, person_qq, person_tx, person_others, user_id, is_used
+  </sql>
+  
+  <!--根据id查询  -->
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from person_info
+    where id = #{id,jdbcType=INTEGER} and is_used = 1
+  </select>
+  <!--根据用户id查询  -->
+  <select id="selectByUserId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from person_info
+    where user_id = #{userId} and is_used = 1
+  </select>
+  <!--根据用户id连表查询  -->
+  <select id="selectUserAndPersonByUserId" resultType="map" parameterType="java.lang.Integer" >
+    select p.*,u.login_name,u.phone,u.email
+    from person_info p,users u
+    where 1=1 and p.user_id=u.id and p.user_id = #{userId} and p.is_used=1 and u.is_used = 1
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from person_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lyg.entitys.PersonInfo" >
+    insert into person_info (id, person_name, person_sex, 
+      person_hobby, person_address, person_sign, 
+      person_explanin, person_work, person_tel, 
+      person_qq, person_tx, person_others, 
+      user_id, is_used)
+    values (#{id,jdbcType=INTEGER}, #{personName,jdbcType=VARCHAR}, #{personSex,jdbcType=VARCHAR}, 
+      #{personHobby,jdbcType=VARCHAR}, #{personAddress,jdbcType=VARCHAR}, #{personSign,jdbcType=VARCHAR}, 
+      #{personExplanin,jdbcType=VARCHAR}, #{personWork,jdbcType=VARCHAR}, #{personTel,jdbcType=VARCHAR}, 
+      #{personQq,jdbcType=VARCHAR}, #{personTx,jdbcType=VARCHAR}, #{personOthers,jdbcType=VARCHAR}, 
+      #{userId,jdbcType=INTEGER}, #{isUsed,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lyg.entitys.PersonInfo" >
+    insert into person_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="personName != null" >
+        person_name,
+      </if>
+      <if test="personSex != null" >
+        person_sex,
+      </if>
+      <if test="personHobby != null" >
+        person_hobby,
+      </if>
+      <if test="personAddress != null" >
+        person_address,
+      </if>
+      <if test="personSign != null" >
+        person_sign,
+      </if>
+      <if test="personExplanin != null" >
+        person_explanin,
+      </if>
+      <if test="personWork != null" >
+        person_work,
+      </if>
+      <if test="personTel != null" >
+        person_tel,
+      </if>
+      <if test="personQq != null" >
+        person_qq,
+      </if>
+      <if test="personTx != null" >
+        person_tx,
+      </if>
+      <if test="personOthers != null" >
+        person_others,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="isUsed != null" >
+        is_used,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="personName != null" >
+        #{personName,jdbcType=VARCHAR},
+      </if>
+      <if test="personSex != null" >
+        #{personSex,jdbcType=VARCHAR},
+      </if>
+      <if test="personHobby != null" >
+        #{personHobby,jdbcType=VARCHAR},
+      </if>
+      <if test="personAddress != null" >
+        #{personAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="personSign != null" >
+        #{personSign,jdbcType=VARCHAR},
+      </if>
+      <if test="personExplanin != null" >
+        #{personExplanin,jdbcType=VARCHAR},
+      </if>
+      <if test="personWork != null" >
+        #{personWork,jdbcType=VARCHAR},
+      </if>
+      <if test="personTel != null" >
+        #{personTel,jdbcType=VARCHAR},
+      </if>
+      <if test="personQq != null" >
+        #{personQq,jdbcType=VARCHAR},
+      </if>
+      <if test="personTx != null" >
+        #{personTx,jdbcType=VARCHAR},
+      </if>
+      <if test="personOthers != null" >
+        #{personOthers,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="isUsed != null" >
+        #{isUsed,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  
+  
+  <!-- 根据id修改 -->
+  <update id="updateByPrimaryKeySelective" parameterType="com.lyg.entitys.PersonInfo" >
+    update person_info
+    <set >
+      <if test="personName != null" >
+        person_name = #{personName,jdbcType=VARCHAR},
+      </if>
+      <if test="personSex != null" >
+        person_sex = #{personSex,jdbcType=VARCHAR},
+      </if>
+      <if test="personHobby != null" >
+        person_hobby = #{personHobby,jdbcType=VARCHAR},
+      </if>
+      <if test="personAddress != null" >
+        person_address = #{personAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="personSign != null" >
+        person_sign = #{personSign,jdbcType=VARCHAR},
+      </if>
+      <if test="personExplanin != null" >
+        person_explanin = #{personExplanin,jdbcType=VARCHAR},
+      </if>
+      <if test="personWork != null" >
+        person_work = #{personWork,jdbcType=VARCHAR},
+      </if>
+      <if test="personTel != null" >
+        person_tel = #{personTel,jdbcType=VARCHAR},
+      </if>
+      <if test="personQq != null" >
+        person_qq = #{personQq,jdbcType=VARCHAR},
+      </if>
+      <if test="personTx != null" >
+        person_tx = #{personTx,jdbcType=VARCHAR},
+      </if>
+      <if test="personOthers != null" >
+        person_others = #{personOthers,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="isUsed != null" >
+        is_used = #{isUsed,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lyg.entitys.PersonInfo" >
+    update person_info
+    set person_name = #{personName,jdbcType=VARCHAR},
+      person_sex = #{personSex,jdbcType=VARCHAR},
+      person_hobby = #{personHobby,jdbcType=VARCHAR},
+      person_address = #{personAddress,jdbcType=VARCHAR},
+      person_sign = #{personSign,jdbcType=VARCHAR},
+      person_explanin = #{personExplanin,jdbcType=VARCHAR},
+      person_work = #{personWork,jdbcType=VARCHAR},
+      person_tel = #{personTel,jdbcType=VARCHAR},
+      person_qq = #{personQq,jdbcType=VARCHAR},
+      person_tx = #{personTx,jdbcType=VARCHAR},
+      person_others = #{personOthers,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=INTEGER},
+      is_used = #{isUsed,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 根据用户id修改 -->
+   <!-- 根据id修改 -->
+  <update id="updateByUserId" parameterType="com.lyg.entitys.PersonInfo"  >
+    update person_info
+    <set >
+      <if test="personName != null" >
+        person_name = #{personName,jdbcType=VARCHAR},
+      </if>
+      <if test="personSex != null" >
+        person_sex = #{personSex,jdbcType=VARCHAR},
+      </if>
+      <if test="personHobby != null" >
+        person_hobby = #{personHobby,jdbcType=VARCHAR},
+      </if>
+      <if test="personAddress != null" >
+        person_address = #{personAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="personSign != null" >
+        person_sign = #{personSign,jdbcType=VARCHAR},
+      </if>
+      <if test="personExplanin != null" >
+        person_explanin = #{personExplanin,jdbcType=VARCHAR},
+      </if>
+      <if test="personWork != null" >
+        person_work = #{personWork,jdbcType=VARCHAR},
+      </if>
+      <if test="personTel != null" >
+        person_tel = #{personTel,jdbcType=VARCHAR},
+      </if>
+      <if test="personQq != null" >
+        person_qq = #{personQq,jdbcType=VARCHAR},
+      </if>
+      <if test="personTx != null" >
+        person_tx = #{personTx,jdbcType=VARCHAR},
+      </if>
+      <if test="personOthers != null" >
+        person_others = #{personOthers,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="isUsed != null" >
+        is_used = #{isUsed,jdbcType=INTEGER},
+      </if>
+    </set>
+    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+  
+</mapper>

@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lyg.dao.ArticlesClassMapper" >
+  <resultMap id="BaseResultMap" type="com.lyg.entitys.ArticlesClass" >
+    <id column="class_id" property="classId" jdbcType="INTEGER" />
+    <result column="class_name" property="className" jdbcType="VARCHAR" />
+    <result column="class_icon" property="classIcon" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="is_used" property="isUsed" jdbcType="INTEGER" />
+    <result column="is_show" property="isShow" jdbcType="INTEGER" />
+    <result column="bg_style" property="bgStyle" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    class_id, class_name, class_icon, create_time, update_time, user_id, is_used ,is_show , bg_style
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from articles_class
+    where class_id = #{classId,jdbcType=INTEGER}
+  </select>
+  <!--  获取分类信息 -->
+  <select id='queryAllArticlesClass' parameterType="com.lyg.entitys.ArticlesClass" resultType="Map">
+    select  a.*,u.login_name from articles_class a ,users u where 1=1  and a.user_id = u.id and a.is_used = 1
+    <if test="classId != null" >
+       and class_id = #{classId,jdbcType=INTEGER}
+      </if>
+      <if test="className != null" >
+       and class_name = #{className,jdbcType=VARCHAR}
+      </if>
+      <if test="classIcon != null" >
+       and class_icon = #{classIcon,jdbcType=VARCHAR}
+      </if>
+      <if test="createTime != null" >
+       and create_time = #{createTime,jdbcType=VARCHAR}
+      </if>
+      <if test="updateTime != null" >
+        and update_time = #{updateTime,jdbcType=VARCHAR}
+      </if>
+      <if test="userId != null" >
+       and user_id = #{userId,jdbcType=INTEGER}
+      </if>
+      <if test="isShow != null" >
+       and is_show = #{isShow,jdbcType=INTEGER}
+      </if>
+  </select>
+  <!-- 获取首页显示的分类   -->
+  <select id="selectIndexShow" resultMap="BaseResultMap">
+      select a.* from articles_class a where 1=1 and a.is_show = 1 and a.is_used=1 
+      order by a.create_time asc
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from articles_class
+    where class_id = #{classId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lyg.entitys.ArticlesClass" >
+    insert into articles_class (class_id, class_name, class_icon, 
+      create_time, update_time, user_id, 
+      is_used,is_show,bg_style)
+    values (#{classId,jdbcType=INTEGER}, #{className,jdbcType=VARCHAR}, #{classIcon,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=VARCHAR}, #{updateTime,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}, 
+      #{isUsed,jdbcType=INTEGER},#{isShow,jdbcType=INTEGER},#{bgStyle,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lyg.entitys.ArticlesClass" >
+    insert into articles_class
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="classId != null" >
+        class_id,
+      </if>
+      <if test="className != null" >
+        class_name,
+      </if>
+      <if test="classIcon != null" >
+        class_icon,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="isUsed != null" >
+        is_used,
+      </if>
+       <if test="isShow != null" >
+        is_show,
+      </if>
+       <if test="bgStyle != null" >
+        bg_style,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="classId != null" >
+        #{classId,jdbcType=INTEGER},
+      </if>
+      <if test="className != null" >
+        #{className,jdbcType=VARCHAR},
+      </if>
+      <if test="classIcon != null" >
+        #{classIcon,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="isUsed != null" >
+        #{isUsed,jdbcType=INTEGER},
+      </if>
+      <if test="isShow != null" >
+        #{isShow,jdbcType=INTEGER},
+      </if>
+      <if test="bgStyle != null" >
+        #{bgStyle,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lyg.entitys.ArticlesClass" >
+    update articles_class
+    <set >
+      <if test="className != null" >
+        class_name = #{className,jdbcType=VARCHAR},
+      </if>
+      <if test="classIcon != null" >
+        class_icon = #{classIcon,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="isUsed != null" >
+        is_used = #{isUsed,jdbcType=INTEGER},
+      </if>
+      <if test="isShow != null" >
+        is_show = #{isShow,jdbcType=INTEGER},
+      </if>
+      <if test="bgStyle != null" >
+        bg_style = #{bgStyle,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where class_id = #{classId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lyg.entitys.ArticlesClass" >
+    update articles_class
+    set class_name = #{className,jdbcType=VARCHAR},
+      class_icon = #{classIcon,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=INTEGER},
+      is_used = #{isUsed,jdbcType=INTEGER}
+    where class_id = #{classId,jdbcType=INTEGER}
+  </update>
+  
+  <!--删除  -->
+  <update id="deleteByClassId" parameterType="java.lang.Integer" >
+    update articles_class
+    set is_used = 0
+    where class_id = #{classId,jdbcType=INTEGER}
+  </update>
+  
+</mapper>

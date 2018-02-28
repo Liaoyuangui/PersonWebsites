@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>添加照片</title>
+<link rel="stylesheet" type="text/css" href="../../../layui/css/layui.css" />
+<link rel="stylesheet" type="text/css" href="../../../layui/css/global.css" />
+<script type="text/javascript"
+	src="../../../js/NoticeEdit/third-party/jquery.min.js"></script>
+<script type="text/javascript"
+	src="../../../js/NoticeEdit/third-party/template.min.js"></script>
+<script type="text/javascript" charset="utf-8"
+	src="../../../js/NoticeEdit/ueditor.config.js"></script>
+<script type="text/javascript" charset="utf-8"
+	src="../../../js/NoticeEdit/ueditor.all.min.js"></script>
+<script type="text/javascript" src="../../../js/NoticeEdit/lang/zh-cn/zh-cn.js"></script>
+<style>
+#edui149_iframe {
+	width: 100%
+	height: 400px;
+}
+</style>
+</head>
+<body>
+	<script type="text/plain" id="myEditor"
+		style="width: 98%; height: 300px;"></script>
+	<button  class="layui-btn" onclick="getContent()" id='update'>确认保存</button>  
+	<button  class="layui-btn" onclick="getContentTxt()" id='del'>获取文本</button> 
+</body>
+
+<script src="../../../layui/layui.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" src='../../../js/unit/unitil.js'></script>
+<script>
+	var utilExt,layer;
+	var xcId;
+	 layui.config({
+		base : '../../../js/unit/'
+	});
+    layui.use(['form', 'layedit', 'laydate','upload','layer','utilExt'], function(){
+        var form = layui.form
+                ,layer = layui.layer
+                ,layedit = layui.layedit
+                ,laydate = layui.laydate;
+        var $ = layui.jquery
+                var upload = layui.upload;
+        utilExt=layui.utilExt;
+        var ue= UE.getEditor('myEditor');
+        ue.addListener( 'ready', function( editor ) {
+     	   //ue.setContent('1');
+        });
+        
+        function getContentTxt(){
+     	   var text = UE.getEditor('myEditor').getContentTxt();
+     	   alert(text)
+        }
+
+    });
+    function getContent(){
+           xcId = utilExt.getUrlParam('xcId'); //为null 添加，有值就修改
+     	   if(xcId){
+     		   var content = UE.getEditor('myEditor').getContent();
+     		   /* 
+     		   var str = content.split("src=")[1].split("\"");
+     		   for(var i=0;i<str.length;i++){
+     		     console.log(str[i])
+     		      str = str[1];
+     		   }
+     		   console.log(str[1]) */
+     		   var data={"content":content,"xcId":xcId}
+     		   $.ajax({
+     			   url:"../../../myAlbumPhoto/insersBatch.do",
+     			   type:'post',
+     			   data:data,
+     			   success:function(res){
+     				   if(res>0){
+     					 utilExt.successMsg("上传成功", function() {
+ 							layer.closeAll();
+ 							location.href="showPhoto.html?xcId="+xcId;
+ 					     });
+     				   }else{
+     					  layer.msg("上传失败",{icon:2});
+     				   }
+     			   }
+     		   }); 
+     	   }else{
+     		  layer.msg("请选择相册",{icon:2});
+     		   return;
+     	   }
+     	   
+        }
+</script>
+<script type="text/javascript">
+
+  
+</script>
+</html>

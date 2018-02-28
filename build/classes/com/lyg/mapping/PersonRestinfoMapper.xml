@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lyg.dao.PersonRestinfoMapper" >
+
+  <cache eviction="FIFO" flushInterval="600000" size="512" readOnly="true"/>
+  
+  <resultMap id="BaseResultMap" type="com.lyg.entitys.PersonRestinfo" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="my_lbImg1" property="myLbimg1" jdbcType="VARCHAR" />
+    <result column="my_lbImg2" property="myLbimg2" jdbcType="VARCHAR" />
+    <result column="my_lbImg3" property="myLbimg3" jdbcType="VARCHAR" />
+    <result column="my_lbImg4" property="myLbimg4" jdbcType="VARCHAR" />
+    <result column="dt_addr" property="dtAddr" jdbcType="VARCHAR" />
+    <result column="addr_jd" property="addrJd" jdbcType="VARCHAR" />
+    <result column="addr_wd" property="addrWd" jdbcType="VARCHAR" />
+    <result column="jx_jj" property="jxJj" jdbcType="VARCHAR" />
+    <result column="jx_lbImg1" property="jxLbimg1" jdbcType="VARCHAR" />
+    <result column="jx_lbImg2" property="jxLbimg2" jdbcType="VARCHAR" />
+    <result column="jx_lbImg3" property="jxLbimg3" jdbcType="VARCHAR" />
+    <result column="jx_lbImg4" property="jxLbimg4" jdbcType="VARCHAR" />
+    <result column="user_defined1" property="userDefined1" jdbcType="INTEGER" />
+    <result column="user_defined2" property="userDefined2" jdbcType="VARCHAR" />
+    <result column="user_defined3" property="userDefined3" jdbcType="VARCHAR" />
+    <result column="add_time" property="addTime" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="VARCHAR" />
+    <result column="is_used" property="isUsed" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, user_id, my_lbImg1, my_lbImg2, my_lbImg3, my_lbImg4, dt_addr, addr_jd, addr_wd, 
+    jx_jj, jx_lbImg1, jx_lbImg2, jx_lbImg3, jx_lbImg4, user_defined1, user_defined2, 
+    user_defined3, add_time, update_time, is_used
+  </sql>
+  
+<!-- 根据id查询  -->
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from person_restinfo
+    where id = #{id,jdbcType=INTEGER} and is_used = 1
+  </select>
+<!-- 连表查询所有的  -->  
+  <select id="selectAllPersonRestInfo" resultType="map"  parameterType="com.lyg.entitys.PersonRestinfo">
+     select p.*,u.login_name,u.phone,u.email
+     from person_restinfo p,users u 
+     where 1=1 and p.user_id = u.id and p.is_used = 1 and u.is_used=1 
+      <if test="id != null" >
+        and p.id=#{id}
+      </if>
+      <if test="userId != null" >
+        and p.user_id=#{userId}
+      </if>
+      <if test="dtAddr != null" >
+        and p.dt_addr=#{dtAddr}
+      </if>
+      <if test="jxJj != null" >
+        and p.jx_jj=#{jxJj}
+      </if>
+      <if test="addTime != null" >
+        and p.add_time=#{addTime}
+      </if>
+  </select>
+  
+  
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from person_restinfo
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lyg.entitys.PersonRestinfo" >
+    insert into person_restinfo (id, user_id, my_lbImg1, 
+      my_lbImg2, my_lbImg3, my_lbImg4, 
+      dt_addr, addr_jd, addr_wd, 
+      jx_jj, jx_lbImg1, jx_lbImg2, 
+      jx_lbImg3, jx_lbImg4, user_defined1, 
+      user_defined2, user_defined3, add_time, 
+      update_time, is_used)
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{myLbimg1,jdbcType=VARCHAR}, 
+      #{myLbimg2,jdbcType=VARCHAR}, #{myLbimg3,jdbcType=VARCHAR}, #{myLbimg4,jdbcType=VARCHAR}, 
+      #{dtAddr,jdbcType=VARCHAR}, #{addrJd,jdbcType=VARCHAR}, #{addrWd,jdbcType=VARCHAR}, 
+      #{jxJj,jdbcType=VARCHAR}, #{jxLbimg1,jdbcType=VARCHAR}, #{jxLbimg2,jdbcType=VARCHAR}, 
+      #{jxLbimg3,jdbcType=VARCHAR}, #{jxLbimg4,jdbcType=VARCHAR}, #{userDefined1,jdbcType=INTEGER}, 
+      #{userDefined2,jdbcType=VARCHAR}, #{userDefined3,jdbcType=VARCHAR}, #{addTime,jdbcType=VARCHAR}, 
+      #{updateTime,jdbcType=VARCHAR}, #{isUsed,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lyg.entitys.PersonRestinfo" >
+    insert into person_restinfo
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="myLbimg1 != null" >
+        my_lbImg1,
+      </if>
+      <if test="myLbimg2 != null" >
+        my_lbImg2,
+      </if>
+      <if test="myLbimg3 != null" >
+        my_lbImg3,
+      </if>
+      <if test="myLbimg4 != null" >
+        my_lbImg4,
+      </if>
+      <if test="dtAddr != null" >
+        dt_addr,
+      </if>
+      <if test="addrJd != null" >
+        addr_jd,
+      </if>
+      <if test="addrWd != null" >
+        addr_wd,
+      </if>
+      <if test="jxJj != null" >
+        jx_jj,
+      </if>
+      <if test="jxLbimg1 != null" >
+        jx_lbImg1,
+      </if>
+      <if test="jxLbimg2 != null" >
+        jx_lbImg2,
+      </if>
+      <if test="jxLbimg3 != null" >
+        jx_lbImg3,
+      </if>
+      <if test="jxLbimg4 != null" >
+        jx_lbImg4,
+      </if>
+      <if test="userDefined1 != null" >
+        user_defined1,
+      </if>
+      <if test="userDefined2 != null" >
+        user_defined2,
+      </if>
+      <if test="userDefined3 != null" >
+        user_defined3,
+      </if>
+      <if test="addTime != null" >
+        add_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="isUsed != null" >
+        is_used,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="myLbimg1 != null" >
+        #{myLbimg1,jdbcType=VARCHAR},
+      </if>
+      <if test="myLbimg2 != null" >
+        #{myLbimg2,jdbcType=VARCHAR},
+      </if>
+      <if test="myLbimg3 != null" >
+        #{myLbimg3,jdbcType=VARCHAR},
+      </if>
+      <if test="myLbimg4 != null" >
+        #{myLbimg4,jdbcType=VARCHAR},
+      </if>
+      <if test="dtAddr != null" >
+        #{dtAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="addrJd != null" >
+        #{addrJd,jdbcType=VARCHAR},
+      </if>
+      <if test="addrWd != null" >
+        #{addrWd,jdbcType=VARCHAR},
+      </if>
+      <if test="jxJj != null" >
+        #{jxJj,jdbcType=VARCHAR},
+      </if>
+      <if test="jxLbimg1 != null" >
+        #{jxLbimg1,jdbcType=VARCHAR},
+      </if>
+      <if test="jxLbimg2 != null" >
+        #{jxLbimg2,jdbcType=VARCHAR},
+      </if>
+      <if test="jxLbimg3 != null" >
+        #{jxLbimg3,jdbcType=VARCHAR},
+      </if>
+      <if test="jxLbimg4 != null" >
+        #{jxLbimg4,jdbcType=VARCHAR},
+      </if>
+      <if test="userDefined1 != null" >
+        #{userDefined1,jdbcType=INTEGER},
+      </if>
+      <if test="userDefined2 != null" >
+        #{userDefined2,jdbcType=VARCHAR},
+      </if>
+      <if test="userDefined3 != null" >
+        #{userDefined3,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null" >
+        #{addTime,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="isUsed != null" >
+        #{isUsed,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lyg.entitys.PersonRestinfo" >
+    update person_restinfo
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="myLbimg1 != null" >
+        my_lbImg1 = #{myLbimg1,jdbcType=VARCHAR},
+      </if>
+      <if test="myLbimg2 != null" >
+        my_lbImg2 = #{myLbimg2,jdbcType=VARCHAR},
+      </if>
+      <if test="myLbimg3 != null" >
+        my_lbImg3 = #{myLbimg3,jdbcType=VARCHAR},
+      </if>
+      <if test="myLbimg4 != null" >
+        my_lbImg4 = #{myLbimg4,jdbcType=VARCHAR},
+      </if>
+      <if test="dtAddr != null" >
+        dt_addr = #{dtAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="addrJd != null" >
+        addr_jd = #{addrJd,jdbcType=VARCHAR},
+      </if>
+      <if test="addrWd != null" >
+        addr_wd = #{addrWd,jdbcType=VARCHAR},
+      </if>
+      <if test="jxJj != null" >
+        jx_jj = #{jxJj,jdbcType=VARCHAR},
+      </if>
+      <if test="jxLbimg1 != null" >
+        jx_lbImg1 = #{jxLbimg1,jdbcType=VARCHAR},
+      </if>
+      <if test="jxLbimg2 != null" >
+        jx_lbImg2 = #{jxLbimg2,jdbcType=VARCHAR},
+      </if>
+      <if test="jxLbimg3 != null" >
+        jx_lbImg3 = #{jxLbimg3,jdbcType=VARCHAR},
+      </if>
+      <if test="jxLbimg4 != null" >
+        jx_lbImg4 = #{jxLbimg4,jdbcType=VARCHAR},
+      </if>
+      <if test="userDefined1 != null" >
+        user_defined1 = #{userDefined1,jdbcType=INTEGER},
+      </if>
+      <if test="userDefined2 != null" >
+        user_defined2 = #{userDefined2,jdbcType=VARCHAR},
+      </if>
+      <if test="userDefined3 != null" >
+        user_defined3 = #{userDefined3,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null" >
+        add_time = #{addTime,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="isUsed != null" >
+        is_used = #{isUsed,jdbcType=INTEGER},
+      </if>
+    </set>
+     where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lyg.entitys.PersonRestinfo" >
+    update person_restinfo
+    set user_id = #{userId,jdbcType=INTEGER},
+      my_lbImg1 = #{myLbimg1,jdbcType=VARCHAR},
+      my_lbImg2 = #{myLbimg2,jdbcType=VARCHAR},
+      my_lbImg3 = #{myLbimg3,jdbcType=VARCHAR},
+      my_lbImg4 = #{myLbimg4,jdbcType=VARCHAR},
+      dt_addr = #{dtAddr,jdbcType=VARCHAR},
+      addr_jd = #{addrJd,jdbcType=VARCHAR},
+      addr_wd = #{addrWd,jdbcType=VARCHAR},
+      jx_jj = #{jxJj,jdbcType=VARCHAR},
+      jx_lbImg1 = #{jxLbimg1,jdbcType=VARCHAR},
+      jx_lbImg2 = #{jxLbimg2,jdbcType=VARCHAR},
+      jx_lbImg3 = #{jxLbimg3,jdbcType=VARCHAR},
+      jx_lbImg4 = #{jxLbimg4,jdbcType=VARCHAR},
+      user_defined1 = #{userDefined1,jdbcType=INTEGER},
+      user_defined2 = #{userDefined2,jdbcType=VARCHAR},
+      user_defined3 = #{userDefined3,jdbcType=VARCHAR},
+      add_time = #{addTime,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=VARCHAR},
+      is_used = #{isUsed,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

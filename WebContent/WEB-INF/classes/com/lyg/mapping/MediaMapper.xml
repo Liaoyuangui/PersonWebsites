@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lyg.dao.MediaMapper" >
+  <resultMap id="BaseResultMap" type="com.lyg.entitys.Media" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="media_name" property="mediaName" jdbcType="VARCHAR" />
+    <result column="media_url" property="mediaUrl" jdbcType="VARCHAR" />
+    <result column="is_music" property="isMusic" jdbcType="INTEGER" />
+    <result column="is_movie" property="isMovie" jdbcType="INTEGER" />
+    <result column="media_icon" property="mediaIcon" jdbcType="VARCHAR" />
+    <result column="media_sort" property="mediaSort" jdbcType="INTEGER" />
+    <result column="add_time" property="addTime" jdbcType="VARCHAR" />
+    <result column="user_defined1" property="userDefined1" jdbcType="VARCHAR" />
+    <result column="user_defined2" property="userDefined2" jdbcType="VARCHAR" />
+    <result column="user_defined3" property="userDefined3" jdbcType="VARCHAR" />
+    <result column="is_used" property="isUsed" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, media_name, media_url, is_music, is_movie, media_icon, media_sort, add_time, 
+    user_defined1, user_defined2, user_defined3, is_used
+  </sql>
+  
+<!-- 根据id查询 -->
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from media
+    where id = #{id,jdbcType=INTEGER} and is_used =1
+  </select>
+<!-- 查询所有的 -->
+  <select id="selectAllMedia" resultMap="BaseResultMap" parameterType="com.lyg.entitys.Media">
+    select 
+    <include refid="Base_Column_List" />
+    from media
+    where 1=1 and is_used =1 
+      <if test="mediaName != null" >
+        and media_name = #{mediaName}
+      </if>
+      <if test="isMusic != null" >
+        and is_music= #{isMusic}
+      </if>
+      <if test="isMovie != null" >
+        and is_movie= #{isMovie}
+      </if>
+      <if test="mediaIcon != null" >
+        and media_icon= #{mediaIcon}
+      </if>
+      <if test="addTime != null" >
+        and add_time= #{addTime}
+      </if>
+      order by media_sort asc
+  </select>
+<!--删除  -->
+  <update id="deleteMediaById" parameterType="java.lang.Integer">
+    update media set is_used = 0  where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from media
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lyg.entitys.Media" >
+    insert into media (id, media_name, media_url, 
+      is_music, is_movie, media_icon, 
+      media_sort, add_time, user_defined1, 
+      user_defined2, user_defined3, is_used
+      )
+    values (#{id,jdbcType=INTEGER}, #{mediaName,jdbcType=VARCHAR}, #{mediaUrl,jdbcType=VARCHAR}, 
+      #{isMusic,jdbcType=INTEGER}, #{isMovie,jdbcType=INTEGER}, #{mediaIcon,jdbcType=VARCHAR}, 
+      #{mediaSort,jdbcType=INTEGER}, #{addTime,jdbcType=VARCHAR}, #{userDefined1,jdbcType=VARCHAR}, 
+      #{userDefined2,jdbcType=VARCHAR}, #{userDefined3,jdbcType=VARCHAR}, #{isUsed,jdbcType=INTEGER}
+      )
+  </insert>
+<!--添加  -->
+  <insert id="insertSelective" parameterType="com.lyg.entitys.Media" >
+    insert into media
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="mediaName != null" >
+        media_name,
+      </if>
+      <if test="mediaUrl != null" >
+        media_url,
+      </if>
+      <if test="isMusic != null" >
+        is_music,
+      </if>
+      <if test="isMovie != null" >
+        is_movie,
+      </if>
+      <if test="mediaIcon != null" >
+        media_icon,
+      </if>
+      <if test="mediaSort != null" >
+        media_sort,
+      </if>
+      <if test="addTime != null" >
+        add_time,
+      </if>
+      <if test="userDefined1 != null" >
+        user_defined1,
+      </if>
+      <if test="userDefined2 != null" >
+        user_defined2,
+      </if>
+      <if test="userDefined3 != null" >
+        user_defined3,
+      </if>
+      <if test="isUsed != null" >
+        is_used,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="mediaName != null" >
+        #{mediaName,jdbcType=VARCHAR},
+      </if>
+      <if test="mediaUrl != null" >
+        #{mediaUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="isMusic != null" >
+        #{isMusic,jdbcType=INTEGER},
+      </if>
+      <if test="isMovie != null" >
+        #{isMovie,jdbcType=INTEGER},
+      </if>
+      <if test="mediaIcon != null" >
+        #{mediaIcon,jdbcType=VARCHAR},
+      </if>
+      <if test="mediaSort != null" >
+        #{mediaSort,jdbcType=INTEGER},
+      </if>
+      <if test="addTime != null" >
+        #{addTime,jdbcType=VARCHAR},
+      </if>
+      <if test="userDefined1 != null" >
+        #{userDefined1,jdbcType=VARCHAR},
+      </if>
+      <if test="userDefined2 != null" >
+        #{userDefined2,jdbcType=VARCHAR},
+      </if>
+      <if test="userDefined3 != null" >
+        #{userDefined3,jdbcType=VARCHAR},
+      </if>
+      <if test="isUsed != null" >
+        #{isUsed,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+<!-- 修改 -->
+  <update id="updateByPrimaryKeySelective" parameterType="com.lyg.entitys.Media" >
+    update media
+    <set >
+      <if test="mediaName != null" >
+        media_name = #{mediaName,jdbcType=VARCHAR},
+      </if>
+      <if test="mediaUrl != null" >
+        media_url = #{mediaUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="isMusic != null" >
+        is_music = #{isMusic,jdbcType=INTEGER},
+      </if>
+      <if test="isMovie != null" >
+        is_movie = #{isMovie,jdbcType=INTEGER},
+      </if>
+      <if test="mediaIcon != null" >
+        media_icon = #{mediaIcon,jdbcType=VARCHAR},
+      </if>
+      <if test="mediaSort != null" >
+        media_sort = #{mediaSort,jdbcType=INTEGER},
+      </if>
+      <if test="addTime != null" >
+        add_time = #{addTime,jdbcType=VARCHAR},
+      </if>
+      <if test="userDefined1 != null" >
+        user_defined1 = #{userDefined1,jdbcType=VARCHAR},
+      </if>
+      <if test="userDefined2 != null" >
+        user_defined2 = #{userDefined2,jdbcType=VARCHAR},
+      </if>
+      <if test="userDefined3 != null" >
+        user_defined3 = #{userDefined3,jdbcType=VARCHAR},
+      </if>
+      <if test="isUsed != null" >
+        is_used = #{isUsed,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lyg.entitys.Media" >
+    update media
+    set media_name = #{mediaName,jdbcType=VARCHAR},
+      media_url = #{mediaUrl,jdbcType=VARCHAR},
+      is_music = #{isMusic,jdbcType=INTEGER},
+      is_movie = #{isMovie,jdbcType=INTEGER},
+      media_icon = #{mediaIcon,jdbcType=VARCHAR},
+      media_sort = #{mediaSort,jdbcType=INTEGER},
+      add_time = #{addTime,jdbcType=VARCHAR},
+      user_defined1 = #{userDefined1,jdbcType=VARCHAR},
+      user_defined2 = #{userDefined2,jdbcType=VARCHAR},
+      user_defined3 = #{userDefined3,jdbcType=VARCHAR},
+      is_used = #{isUsed,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

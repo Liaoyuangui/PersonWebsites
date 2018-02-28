@@ -1,0 +1,61 @@
+/***/
+@media screen and (max-width:1360px)  {
+	*{margin: 0;padding: 0}
+        body {
+　　　   　font: normal 100% Helvetica, Arial, sans-serif;
+          font-size:100%;
+　　    }	
+      #header{
+	    display: none;
+	}
+	#nav{
+	    display: none;
+	}
+        .weizi{width:100%;}
+	#c_right{
+	   display: none;
+	}
+	#content{
+	   width: 100%;
+	   margin: 0px auto; 
+	}
+	#content_text .text1 img{
+	   max-width: 100%;
+	}
+       #c_left #articleDetails_content{
+           width:100%;
+       }
+       .title{margin-left:5px; font-size: 1.5em;}
+	.s_tuijian h2 {
+	   width: 100%;
+	   margin-right: 0px;
+           font-size: 1.5em;
+	}
+	#c_left .s_tuijian {
+        width: 100%;
+        margin-left:0px;
+    }
+    #c_left .content_text{
+       width: 100%;
+    }
+    #c_left .content_text .wz{
+        width: 100%;
+    }
+    .left .s_tuijian img {
+       margin-left: 5px;
+    }
+    .text1{
+       padding: 0 10px 0 10px;
+       font-size:1em;
+     }
+	#footer{
+	   width: 100%;
+	}
+	#c_left{
+	   width: 100%;
+	}
+   .content_text .text_wx{ margin-left:80px;}
+   .content_text .text_zfb{margin-left:80px;}
+
+	
+}

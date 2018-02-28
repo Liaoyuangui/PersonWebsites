@@ -1,0 +1,200 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<link rel="shortcut icon" type="image/x-icon" href="../../images/ico.ico" media="screen" />
+<title>个人日记--放肆的青春诠释了悲伤</title>
+<meta name="keywords" content="个人博客" />
+<meta name="description" content="" />
+<link rel="stylesheet" href="../../css/index.css"/>
+    <link rel="stylesheet" href="../../css/style.css"/>
+    <link rel="stylesheet" href="../../layui/css/layui.css">
+
+    <script type="text/javascript" src="../../js/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="../../js/jquery.SuperSlide.2.1.1.js"></script>
+    <script type="text/javascript" src="../../layui/layui.js"></script>
+    <script type="text/javascript" src="../../js/share/share.js"> </script>
+    <script type="text/javascript" src="../../js/unit/unitil.js"></script>
+<!--[if lt IE 9]>
+<script src="js/html5.js"></script>
+<![endif]-->
+    <style>
+       #c_right .s_about img{margin-left: 15px;}
+       .lanmubox h2{
+         width: 230px;
+         margin: 0 auto;
+         font-size: 16px;
+         color: #333;
+         padding: 10px 0px 3px 10px;
+         border-bottom: 1px solid #555;
+     }
+     #riji{min-height: 734px;}
+    </style>
+
+</head>
+       
+<body>
+      <!--header start-->
+    <div id="header">
+       <img id="headImgUrl" alt="img" src="../../images/welcome.png" width="300" height="50" style="margin-left: 350px">
+      <p id="headSign">青春是打开了,就合不上的书。人生是踏上了，就回不了头的路，爱情是扔出了，就收不回的赌注。</p>    
+    </div>
+     <!--header end-->
+    <!--nav-->
+     <div id="nav">
+        <ul>
+	         <li><a href="../../index.html">首页</a></li>
+	         <li><a href="about.jsp">关于我</a></li>
+	         <li><a href="learn.html">学海无涯</a></li>
+	      <!--    <li><a href="dynamics.html">个人动态</a></li> -->
+	         <li><a href="personalDiary.html">个人日记</a></li>
+	         <li><a href="media.html">媒体展示</a></li>
+	         <li><a href="message.html">留言板</a></li>
+	         <div class="clear"></div>
+        </ul>
+      </div>
+       <!--nav end-->
+    <!--content start-->
+    <div id="content">
+       <!--left-->
+         <div class="left" id="riji">
+           <div class="weizi">
+           <div class="wz_text">当前位置：<a href="../../index.html">首页</a>><h1>个人日记</h1></div>
+           </div>
+
+             <div>
+                 <ul class="layui-timeline" id='diary'>
+                    <!-- 日记内容 -->
+                 </ul>
+                 <!--分页-->
+		        <hr><div id="fenye">
+		            <div id="demo7" style="margin: -5px 0 0 0;height: 50px;margin-left: 30px;"></div>
+		        </div>
+             </div>
+
+
+         </div>
+         <!--end left -->
+          <!--right-->
+         <div class="right" id="c_right">
+          <div class="s_about">
+	          <h2>关于我<a href="about.jsp">更多>></a></h2>
+	           <img class="person_tx" src="" width="230" height="230" alt="个人头像"/>
+	           <p  class='person_name'></p>
+	           <p class='person_work'></p>
+	           <p class='person_address'></p>
+	           <p>
+	           <a target=blank href=tencent://message/?uin=1129896968&Site=lyg&Menu=yes><span class="left b_1"></span></a><a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=9a9e02cd8b34796871514359bae9521d53a793fce9e46794b69d18b43fcf540c"><img border="0" src="//pub.idqqimg.com/wpa/images/group.png" alt="難忘的、壹天" title="難忘的、壹天"></a>
+	           <div class="clear"></div>
+	           </p>
+          </div>
+          <!--栏目分类-->
+	        <div class="lanmubox">
+	            <!-- <div class="hd">
+	                <ul><li>精心推荐</li><li>最新文章</li></ul>
+	            </div>
+	            <div class="bd">
+	                <ul id='jxtj'>
+	                </ul>
+	                <ul id='zxwz'>
+	                </ul>
+	            </div> -->
+	           <h2>今日天气</h2>
+               <iframe allowtransparency="true" frameborder="0" width="255" height="98" scrolling="no" src="//tianqi.2345.com/plugin/widget/index.htm?s=1&z=1&t=1&v=0&d=1&bd=0&k=&f=&ltf=009944&htf=cc0000&q=1&e=1&a=1&c=54511&w=255&h=98&align=center"></iframe>
+	        </div>
+           <!--end-->
+         </div>
+         <!--end  right-->
+         <div class="clear"></div>
+         
+    </div>
+    <!--content end-->
+    <!--footer-->
+    <div id="footer">
+       <p id="footLabel">The Boy Who Harnessed The Wind Liaoyuangui</p>
+       <p id="footLabel1">联系方式:1129696968@qq.com</p>
+    </div>
+    <!--footer end-->
+     <script type="text/javascript">jQuery(".lanmubox").slide({easing:"easeOutBounce",delayTime:400});</script>
+	<script  type="text/javascript" src="../../js/nav.js"></script>
+	<script type="text/javascript" src="../../js/content/content.js"></script>
+	<script type="text/javascript" src="../../js/content/theme.js"></script>
+</body>
+  <script>
+     //获取个人信息
+     getPersonInfo();  
+     //查询推荐的文章
+     getTjArticles();
+     //查询最新的文章
+     getNewArticles();
+  </script>
+  <script>
+         layui.use(['element','laypage', 'layer'], function(){
+             var $ = layui.jquery
+             ,element = layui.element; //Tab的切换功能，切换事件监听等，需要依赖element模块
+             var laypage = layui.laypage
+                     ,layer = layui.layer;
+             getDiaryInfo();
+             function  getDiaryInfo(){
+            	 $.ajax({
+            		url:'../../diary/queryAllDiary.do',
+            		type:'post',
+            		success:function(data){
+            			  //分页完整功能
+                        if(data.length>10){
+           			    	//调用分页
+           					  laypage.render({
+           					    elem: 'demo7'
+           					    ,count: data.length
+           					    ,limit:'10'
+           					    ,layout: ['count', 'prev', 'page', 'next',  'skip']
+           					    ,jump: function(obj){
+           					      //模拟渲染
+           					      document.getElementById('diary').innerHTML = function(){
+           					        var arr = []
+           					        ,thisData = data.concat().splice(obj.curr*obj.limit - obj.limit, obj.limit);
+           					        layui.each(thisData, function(index, item){
+           					         var time = item.addTime;
+           					         var strs= new Array(); //定义一数组 
+           					         strs = time.split(" ");
+           					         var addTime = strs[0];
+           					         arr.push( "<li class='layui-timeline-item'>"+
+           	                         "<i class='layui-icon layui-timeline-axis'>&#xe63f;</i>"+
+           	                        " <div class='layui-timeline-content layui-text'>"+
+           	                             "<h3 class='layui-timeline-title'>"+addTime+"</h3>"+
+           	                             "<p>"+item.content+"</p>"+
+           	                         "</div>"+
+           	                     "</li>");
+           					        });
+           					        return arr.join('');
+           					      }();
+           					    }
+           					  });
+           			    }else{
+           			    	$.each(data,function(index,item){
+           			    	     var time = item.addTime;
+    					         var strs= new Array(); //定义一数组 
+    					         strs = time.split(" ");
+    					         var addTime = strs[0];
+           	    				 $("#diary").append(
+           	    						"<li class='layui-timeline-item'>"+
+              	                         "<i class='layui-icon layui-timeline-axis'>&#xe63f;</i>"+
+              	                        " <div class='layui-timeline-content layui-text'>"+
+              	                             "<h3 class='layui-timeline-title'>"+addTime+"</h3>"+
+              	                             "<p>"+item.content+"</p>"+
+              	                         "</div>"+
+              	                     "</li>"
+           	    		        );
+           	    			});
+           			    }
+
+            		}
+            	 });
+             }
+
+         });
+ </script>
+  
+
+</html>
+

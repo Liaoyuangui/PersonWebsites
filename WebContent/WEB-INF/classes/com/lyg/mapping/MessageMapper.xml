@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lyg.dao.MessageMapper" >
+  <resultMap id="BaseResultMap" type="com.lyg.entitys.Message" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="user_nickName" property="userNickname" jdbcType="VARCHAR" />
+    <result column="user_tx" property="userTx" jdbcType="VARCHAR" />
+    <result column="user_qq" property="userQq" jdbcType="VARCHAR" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="add_time" property="addTime" jdbcType="VARCHAR" />
+    <result column="is_nm" property="isNm" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="pid" property="pid" jdbcType="INTEGER" />
+    <result column="reply_user_id" property="replyUserId" jdbcType="INTEGER" />
+    <result column="reply_nickName" property="replyNickname" jdbcType="VARCHAR" />
+    <result column="reply_tx" property="replyTx" jdbcType="VARCHAR" />
+    <result column="reply_content" property="replyContent" jdbcType="VARCHAR" />
+    <result column="is_used" property="isUsed" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, user_id, user_nickName, user_tx, user_qq, content, add_time, is_nm, name, email, 
+    phone, pid, reply_user_id, reply_nickName, reply_tx, reply_content, is_used
+  </sql>
+  
+  <!-- 根据id查询 -->
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from message
+    where id = #{id,jdbcType=INTEGER} and  is_used = 1
+  </select>
+  <!-- 查询所有的 -->
+  <select id="selectAllMessage" resultMap="BaseResultMap" parameterType="com.lyg.entitys.Message">
+    select 
+    <include refid="Base_Column_List" />
+    from message
+    where 1=1 and is_used = 1 
+    <if test="isNm != null" >
+       and is_nm = #{isNm,jdbcType=INTEGER}
+    </if>
+    <if test="userNickname != null" >
+       and user_nickName = #{userNickname,jdbcType=VARCHAR}
+    </if>
+    <if test="name != null">
+       and name = #{name,jdbcType=VARCHAR}
+    </if>
+    <if test="phone != null">
+       and phone =  #{phone,jdbcType=VARCHAR}
+    </if>
+    <if test="phone != null">
+       and email =  #{email,jdbcType=VARCHAR}
+    </if>
+    <if test="addTime != null">
+       and add_time =  #{addTime,jdbcType=VARCHAR}
+    </if>
+    <if test="content != null">
+       and content =  #{content,jdbcType=VARCHAR}
+    </if>
+    ORDER BY add_time asc
+  </select>
+  <!-- 删除留言  -->
+  <update id="deleteMessageById" parameterType="java.lang.Integer">
+     update message set is_used = 0 where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from message
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lyg.entitys.Message" >
+    insert into message (id, user_id, user_nickName, 
+      user_tx, user_qq, content, 
+      add_time, is_nm, name, 
+      email, phone, pid, 
+      reply_user_id, reply_nickName, reply_tx, 
+      reply_content, is_used)
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{userNickname,jdbcType=VARCHAR}, 
+      #{userTx,jdbcType=VARCHAR}, #{userQq,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, 
+      #{addTime,jdbcType=VARCHAR}, #{isNm,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{pid,jdbcType=INTEGER}, 
+      #{replyUserId,jdbcType=INTEGER}, #{replyNickname,jdbcType=VARCHAR}, #{replyTx,jdbcType=VARCHAR}, 
+      #{replyContent,jdbcType=VARCHAR}, #{isUsed,jdbcType=INTEGER})
+  </insert>
+  <!-- 插入 -->
+  <insert id="insertSelective" parameterType="com.lyg.entitys.Message" >
+    insert into message
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="userNickname != null" >
+        user_nickName,
+      </if>
+      <if test="userTx != null" >
+        user_tx,
+      </if>
+      <if test="userQq != null" >
+        user_qq,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="addTime != null" >
+        add_time,
+      </if>
+      <if test="isNm != null" >
+        is_nm,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="pid != null" >
+        pid,
+      </if>
+      <if test="replyUserId != null" >
+        reply_user_id,
+      </if>
+      <if test="replyNickname != null" >
+        reply_nickName,
+      </if>
+      <if test="replyTx != null" >
+        reply_tx,
+      </if>
+      <if test="replyContent != null" >
+        reply_content,
+      </if>
+      <if test="isUsed != null" >
+        is_used,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userNickname != null" >
+        #{userNickname,jdbcType=VARCHAR},
+      </if>
+      <if test="userTx != null" >
+        #{userTx,jdbcType=VARCHAR},
+      </if>
+      <if test="userQq != null" >
+        #{userQq,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null" >
+        #{addTime,jdbcType=VARCHAR},
+      </if>
+      <if test="isNm != null" >
+        #{isNm,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="pid != null" >
+        #{pid,jdbcType=INTEGER},
+      </if>
+      <if test="replyUserId != null" >
+        #{replyUserId,jdbcType=INTEGER},
+      </if>
+      <if test="replyNickname != null" >
+        #{replyNickname,jdbcType=VARCHAR},
+      </if>
+      <if test="replyTx != null" >
+        #{replyTx,jdbcType=VARCHAR},
+      </if>
+      <if test="replyContent != null" >
+        #{replyContent,jdbcType=VARCHAR},
+      </if>
+      <if test="isUsed != null" >
+        #{isUsed,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lyg.entitys.Message" >
+    update message
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userNickname != null" >
+        user_nickName = #{userNickname,jdbcType=VARCHAR},
+      </if>
+      <if test="userTx != null" >
+        user_tx = #{userTx,jdbcType=VARCHAR},
+      </if>
+      <if test="userQq != null" >
+        user_qq = #{userQq,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null" >
+        add_time = #{addTime,jdbcType=VARCHAR},
+      </if>
+      <if test="isNm != null" >
+        is_nm = #{isNm,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="pid != null" >
+        pid = #{pid,jdbcType=INTEGER},
+      </if>
+      <if test="replyUserId != null" >
+        reply_user_id = #{replyUserId,jdbcType=INTEGER},
+      </if>
+      <if test="replyNickname != null" >
+        reply_nickName = #{replyNickname,jdbcType=VARCHAR},
+      </if>
+      <if test="replyTx != null" >
+        reply_tx = #{replyTx,jdbcType=VARCHAR},
+      </if>
+      <if test="replyContent != null" >
+        reply_content = #{replyContent,jdbcType=VARCHAR},
+      </if>
+      <if test="isUsed != null" >
+        is_used = #{isUsed,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lyg.entitys.Message" >
+    update message
+    set user_id = #{userId,jdbcType=INTEGER},
+      user_nickName = #{userNickname,jdbcType=VARCHAR},
+      user_tx = #{userTx,jdbcType=VARCHAR},
+      user_qq = #{userQq,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR},
+      add_time = #{addTime,jdbcType=VARCHAR},
+      is_nm = #{isNm,jdbcType=INTEGER},
+      name = #{name,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      pid = #{pid,jdbcType=INTEGER},
+      reply_user_id = #{replyUserId,jdbcType=INTEGER},
+      reply_nickName = #{replyNickname,jdbcType=VARCHAR},
+      reply_tx = #{replyTx,jdbcType=VARCHAR},
+      reply_content = #{replyContent,jdbcType=VARCHAR},
+      is_used = #{isUsed,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>layui</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+ <link rel="stylesheet" href="../../../layui/css/layui.css" media="all">
+ <script type="text/javascript" src='../../../js/jquery-2.1.1.min.js'></script> 
+  <style type="text/css">
+   #myTable{
+     width:100%;
+   }
+  </style>
+
+</head>
+<body>  
+<!-- <div class="layui-btn-group demoTable">
+  <button class="layui-btn" data-type="getCheckData">获取选中行数据</button>
+  <button class="layui-btn" data-type="getCheckLength">获取选中数目</button>
+  <button class="layui-btn" data-type="isAll">验证是否全选</button>
+</div> -->
+<!-- lay-verify="required" -->
+<form class="layui-form" action="" id="js_form_box">
+	   <div class="layui-form-item">
+	    <div class="layui-inline">
+	      <label class="layui-form-label">分类名称</label>
+	      <div class="layui-input-inline">
+	        <input type="text" id='p_className' autocomplete="off" class="layui-input">
+	      </div>
+	    </div>
+	    <div class="layui-inline">
+	      <label class="layui-form-label">创建时间</label>
+	      <div class="layui-input-inline">
+	        <input type="text"  autocomplete="off" class="layui-input" readonly="readonly">
+	      </div>
+	    </div>
+        <div class="layui-input-block">
+            <button class="layui-btn"  lay-filter="btnSave" id='btnSave'>查询</button>
+        </div>
+	  </div>
+  </form>
+<table class="layui-table" lay-data="{height:315, url:'../../../articlesClass/getAllArticlesClass.do', page:true, id:'test'}" lay-filter="demo" id='myTable'>
+  <thead>
+    <tr>
+      <th lay-data="{checkbox:true, fixed: true}"></th>
+      <th>ID</th>
+      <th>创建人</th>
+      <th>名称</th>
+      <th>图标</th>
+      <th>创建时间</th>
+      <th>修改时间</th>
+      <th>操作</th>
+    </tr>
+  </thead>
+</table>
+ 
+<script type="text/html" id="barDemo">
+  <a class="layui-btn layui-btn-primary layui-btn-mini" lay-event="detail">查看</a>
+  <a class="layui-btn layui-btn-mini" lay-event="edit">编辑</a>
+  <a class="layui-btn layui-btn-danger layui-btn-mini" lay-event="del">删除</a>
+</script>
+               
+          
+<script src="../../../layui/layui.js" charset="utf-8"></script>
+<script>
+var utilExt;
+layui.config({
+	base : '../../../js/unit/'
+});
+layui.use(['form', 'layedit','table', 'laydate','upload','layer','utilExt'], function(){
+    var form = layui.form
+            ,layer = layui.layer
+            ,layedit = layui.layedit
+            ,laydate = layui.laydate
+            ,table = layui.table;
+    var $ = layui.jquery
+            var upload = layui.upload;
+    utilExt=layui.utilExt;
+	  
+	  /* 
+	  $('.demoTable .layui-btn').on('click', function(){
+	    var type = $(this).data('type');
+	    active[type] ? active[type].call(this) : '';
+	  }); */
+	  
+	  //监听提交
+	  /* form.on('submit(btnSave)', function(data){
+		  console.log(1)
+	  	  var data = utilExt.getParamValues('p_','#js_form_box');
+	      $.ajax({
+	      	url:'../../../articlesClass/getAllArticlesClass.do',
+	      	data:data,
+	      	type:'post',
+	      	dataType: 'json',
+	      	success:function(res){
+	      		$.each(res,function(i,item){
+	      			$("#myTable").append("<tr>"
+	      			     + "<th>"+item.class_id+"</th>"
+	      			     + "<th>"+item.class_id+"</th>"
+	      			     + "<th>"+item.class_id+"</th>"
+	      			     + "<th>"+item.class_id+"</th>"
+	      			     + "<th>"+item.class_id+"</th>"
+	      			     + "<th>"+item.class_id+"</th>"
+	      			     + "<th>"+item.class_id+"</th>"
+	      			     + "<th>"+item.class_id+"</th>"
+	      			    +"</tr>");
+	      		});
+	      	}
+	      });
+	  }); */
+
+	});
+
+
+</script>
+
+</body>
+</html>

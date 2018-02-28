@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+ <title></title>
+    <link rel="stylesheet" href="../../../layui/css/layui.css">
+    <style>
+        .layui-upload-list{
+            width: 250px;
+            height: 150px;
+            border: 1px solid;
+        }
+        .layui-upload-list .layui-upload-img{width:250px;height: 150px;}
+        .layui-upload{width:400px;height: 250px;margin: 0 auto}
+        .ts{color:red;}
+    </style>
+</head>
+<body>
+
+<div class="layui-form" action="" enctype="multipart/form-data" id="js_form_box">
+     <p class="ts">关于我的个人轮播照片，请选择jpg或png格式的照片，选择大图上传</p>
+     <div class="layui-form-item">
+		<div class="layui-inline">
+			   <label class="layui-form-label">轮播图片1：</label>
+		       <div class="">
+		        <input id="choseImg1" type="file" name="choseImg1"  lay-type="file" >
+		       <!--  <button type="button" class="layui-btn" id="uploadTx">确定上传</button> -->
+		        <div class="layui-upload-list">
+		            <img class="layui-upload-img" name="mylb1" id="mylb1" >
+		        </div>
+		      </div>
+	     </div>
+	     <div class="layui-inline">
+			   <label class="layui-form-label">轮播图片2：</label>
+		       <div class="">
+		        <input id="choseImg2" type="file" name="choseImg2"  lay-type="file" >
+		       <!--  <button type="button" class="layui-btn" id="uploadTx">确定上传</button> -->
+		        <div class="layui-upload-list">
+		            <img class="layui-upload-img" name="mylb2" id="mylb2" >
+		        </div>
+		      </div>
+	     </div>
+    </div>
+    <div class="layui-form-item">
+		<div class="layui-inline">
+			   <label class="layui-form-label">轮播图片3：</label>
+		       <div class="">
+		        <input id="choseImg3" type="file" name="choseImg3"  lay-type="file" >
+		       <!--  <button type="button" class="layui-btn" id="uploadTx">确定上传</button> -->
+		        <div class="layui-upload-list">
+		            <img class="layui-upload-img" name="mylb3" id="mylb3" >
+		        </div>
+		      </div>
+	     </div>
+	     <div class="layui-inline">
+			   <label class="layui-form-label">轮播图片4：</label>
+		       <div class="">
+		        <input id="choseImg4" type="file" name="choseImg4"  lay-type="file" >
+		       <!--  <button type="button" class="layui-btn" id="uploadTx">确定上传</button> -->
+		        <div class="layui-upload-list">
+		            <img class="layui-upload-img" name="mylb4" id="mylb4" >
+		        </div>
+		      </div>
+	     </div>
+    </div>
+    
+    <div class="layui-form-item">
+	   <div class="layui-inline">
+	        <label class="layui-form-label">地图地址：</label>
+	        <div class="layui-input-block">
+	            <input type="text" name="p_dtAddr" lay-verify="required" id="p_dtAddr" autocomplete="off" placeholder="请输入地名" class="layui-input">
+	        </div>
+	   </div>
+	    <div class="layui-inline">
+	        <label class="layui-form-label">地图经度：</label>
+	        <div class="layui-input-block">
+	            <input type="text" name="p_addrJd" lay-verify="required" id="p_addrJd" autocomplete="off" placeholder="请输入经度" class="layui-input">
+	        </div>
+	   </div>
+	    <div class="layui-inline">
+	        <label class="layui-form-label">地图纬度：</label>
+	        <div class="layui-input-block">
+	            <input type="text" name="p_addrWd" lay-verify="required" id="p_addrWd" autocomplete="off" placeholder="请输入纬度" class="layui-input">
+	        </div>
+	   </div>
+    </div>
+    <div class="layui-form-item layui-form-text">
+        <label class="layui-form-label">家乡简介</label>
+        <div class="layui-input-block">
+            <textarea class="layui-textarea" id="p_jxJj" name="jxJj" placeholder="请输入内容"  ></textarea>
+        </div>
+    </div>
+    <!-- 家乡的轮播图片，请上次jpg或png格式的图片，请选择大图上传  -->
+    <p class="ts"> 家乡的轮播图片，请上次jpg或png格式的图片，请选择大图上传</p>
+    <div class="layui-form-item">
+		<div class="layui-inline">
+			   <label class="layui-form-label">轮播图片1：</label>
+		       <div class="">
+		        <input id="chosejxImg1" type="file" name="chosejxImg1"  lay-type="file" >
+		       <!--  <button type="button" class="layui-btn" id="uploadTx">确定上传</button> -->
+		        <div class="layui-upload-list">
+		            <img class="layui-upload-img" name="jxImg1" id="jxImg1" >
+		        </div>
+		      </div>
+	     </div>
+	     <div class="layui-inline">
+			   <label class="layui-form-label">轮播图片2：</label>
+		       <div class="">
+		        <input id="chosejxImg2" type="file" name="chosejxImg2"  lay-type="file" >
+		       <!--  <button type="button" class="layui-btn" id="uploadTx">确定上传</button> -->
+		        <div class="layui-upload-list">
+		            <img class="layui-upload-img" name="jxImg2" id="jxImg2" >
+		        </div>
+		      </div>
+	     </div>
+    </div>
+    <div class="layui-form-item">
+		<div class="layui-inline">
+			   <label class="layui-form-label">轮播图片3：</label>
+		       <div class="">
+		        <input id="chosejxImg3" type="file" name="chosejxImg3"  lay-type="file" >
+		       <!--  <button type="button" class="layui-btn" id="uploadTx">确定上传</button> -->
+		        <div class="layui-upload-list">
+		            <img class="layui-upload-img" name="jxImg3" id="jxImg3" >
+		        </div>
+		      </div>
+	     </div>
+	     <div class="layui-inline">
+			   <label class="layui-form-label">轮播图片4：</label>
+		       <div class="">
+		        <input id="chosejxImg4" type="file" name="chosejxImg4"  lay-type="file" >
+		       <!--  <button type="button" class="layui-btn" id="uploadTx">确定上传</button> -->
+		        <div class="layui-upload-list">
+		            <img class="layui-upload-img" name="jxImg4" id="jxImg4" >
+		        </div>
+		      </div>
+	     </div>
+    </div>
+    
+ 	<!--  其他   ：personOthers-->
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+             <button class="layui-btn"  id='btnSave'>立即提交</button>
+            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src='../../../js/jquery-2.1.1.min.js'></script>
+<script src="../../../layui/layui.js" charset="utf-8"></script>
+<!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
+<script>
+	var utilExt,layer;
+	 layui.config({
+		base : '../../../js/unit/'
+	});
+    layui.use(['form', 'upload','layer','utilExt'], function(){
+        var form = layui.form
+                ,layer = layui.layer;
+        var $ = layui.jquery;
+        var upload = layui.upload;
+        utilExt=layui.utilExt;
+
+        //创建一个编辑器
+       // var editIndex = layedit.build('p_personExplanin');
+        //获取个人其他信息
+        getPersonRestInfo();
+        //监听提交
+        $("#btnSave").click(function(){
+        	savePerInfo();
+        });
+        function savePerInfo(){
+       	 var data = utilExt.getParamValues('p_','#js_form_box');
+         	data.myLbimg1 = $('#mylb1').attr('src');
+         	data.myLbimg2 = $('#mylb2').attr('src');
+         	data.myLbimg3 = $('#mylb3').attr('src');
+         	data.myLbimg4 = $('#mylb4').attr('src');
+         	data.jxLbimg1 = $('#jxImg1').attr('src');
+         	data.jxLbimg2 = $('#jxImg2').attr('src');
+         	data.jxLbimg3 = $('#jxImg3').attr('src');
+         	data.jxLbimg4 = $('#jxImg4').attr('src');
+             $.ajax({
+             	url:'../../../personRestinfo/insertSelective.do',
+             	data:data,
+             	type:'post',
+             	success:function(result){
+             		if(result>0){
+             			//重新调用查询的方法
+             			utilExt.successMsg("保存成功！！！", function() {
+    							layer.closeAll();
+    							getPersonRestInfo();
+    						});
+             		}else{
+             			 utilExt.errorMsg("保存失败");
+             		}
+             	}
+             });
+       }
+       //获取个人信息
+       function getPersonRestInfo(){
+    	   $.ajax({
+    		  url:'../../../personRestinfo/selectAllPerByUserId.do', 
+    		  type:'post',
+    		  success:function(res){
+    			  var res = res[0];
+    			  if(res==null){
+    				  layer.msg("请先登录",{icon:2}); 
+    			  }else{
+						utilExt.setParamValues(res,'p_','#js_form_box');
+						//地址，精度，纬度，简介
+						 $("#p_dtAddr").val(res.dt_addr);
+						 $("#p_addrJd").val(res.addr_jd);
+						 $("#p_addrWd").val(res.addr_wd);
+						 $("#p_jxJj").val(res.jx_jj);
+						 $('#mylb1').attr('src', res.my_lbImg1);
+						 $('#mylb2').attr('src', res.my_lbImg2);
+						 $('#mylb3').attr('src', res.my_lbImg3);
+						 $('#mylb4').attr('src', res.my_lbImg4);
+						 $('#jxImg1').attr('src', res.jx_lbImg1);
+						 $('#jxImg2').attr('src', res.jx_lbImg2);
+						 $('#jxImg3').attr('src', res.jx_lbImg3);
+						 $('#jxImg4').attr('src', res.jx_lbImg4); 
+					//	 $('#p_personSex').siblings().find('dd[lay-value="' + res.result.personSex + '"]').click();
+    			  }
+    		  }
+    	   });
+       }
+       
+       //个人轮播图片上传
+     //上传四张轮播图
+       var uploadInst = upload.render({
+           elem: '#choseImg1'
+           ,url: '../../../personRestinfo/savePersonImg1.do'
+          	,auto: true //选择文件后不自动上传
+           ,exts: 'jpg|png|jpeg' //文件格式
+       	,done: function(res){
+       	      //上传完毕回调
+       		 $('#mylb1').attr('src', res.src);
+       		 layer.msg('上传成功',{icon:1});
+       	}
+          
+       });
+       var uploadInst = upload.render({
+           elem: '#choseImg2'
+           ,url: '../../../personRestinfo/savePersonImg2.do'
+          	,auto: true //选择文件后不自动上传
+           ,exts: 'jpg|png|jpeg' //文件格式
+       	,done: function(res){
+       	      //上传完毕回调
+       		 $('#mylb2').attr('src', res.src);
+       		 layer.msg('上传成功',{icon:1});
+       	}
+          
+       });
+       var uploadInst = upload.render({
+           elem: '#choseImg3'
+           ,url: '../../../personRestinfo/savePersonImg3.do'
+          	,auto: true //选择文件后不自动上传
+           ,exts: 'jpg|png|jpeg' //文件格式
+       	,done: function(res){
+       	      //上传完毕回调
+       		 $('#mylb3').attr('src', res.src);
+       		 layer.msg('上传成功',{icon:1});
+       	}
+          
+       });
+       var uploadInst = upload.render({
+           elem: '#choseImg4'
+           ,url: '../../../personRestinfo/savePersonImg4.do'
+          	,auto: true //选择文件后不自动上传
+           ,exts: 'jpg|png|jpeg' //文件格式
+       	,done: function(res){
+       	      //上传完毕回调
+       		 $('#mylb4').attr('src', res.src);
+       		 layer.msg('上传成功',{icon:1});
+       	}
+          
+       });
+       
+       //家乡的轮播图片上传，四张
+       var uploadInst = upload.render({
+           elem: '#chosejxImg1'
+           ,url: '../../../personRestinfo/saveJxImg1.do'
+          	,auto: true //选择文件后不自动上传
+           ,exts: 'jpg|png|jpeg' //文件格式
+       	,done: function(res){
+       	      //上传完毕回调
+       		 $('#jxImg1').attr('src', res.src);
+       		 layer.msg('上传成功',{icon:1});
+       	}
+          
+       });
+       var uploadInst = upload.render({
+           elem: '#chosejxImg2'
+           ,url: '../../../personRestinfo/saveJxImg2.do'
+          	,auto: true //选择文件后不自动上传
+           ,exts: 'jpg|png|jpeg' //文件格式
+       	,done: function(res){
+       	      //上传完毕回调
+       		 $('#jxImg2').attr('src', res.src);
+       		 layer.msg('上传成功',{icon:1});
+       	}
+          
+       });
+       var uploadInst = upload.render({
+           elem: '#chosejxImg3'
+           ,url: '../../../personRestinfo/saveJxImg3.do'
+          	,auto: true //选择文件后不自动上传
+           ,exts: 'jpg|png|jpeg' //文件格式
+       	,done: function(res){
+       	      //上传完毕回调
+       		 $('#jxImg3').attr('src', res.src);
+       		 layer.msg('上传成功',{icon:1});
+       	}
+          
+       });
+       var uploadInst = upload.render({
+           elem: '#chosejxImg4'
+           ,url: '../../../personRestinfo/saveJxImg4.do'
+          	,auto: true //选择文件后不自动上传
+           ,exts: 'jpg|png|jpeg' //文件格式
+       	,done: function(res){
+       	      //上传完毕回调
+       		 $('#jxImg4').attr('src', res.src);
+       		 layer.msg('上传成功',{icon:1});
+       	}
+          
+       });
+      
+
+    });
+    
+   
+
+</script>
+
+</body>
+</html>

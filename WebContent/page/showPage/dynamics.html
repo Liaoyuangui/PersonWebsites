@@ -1,0 +1,294 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" type="image/x-icon" href="../../images/ico.ico" media="screen" />
+    <title>个人动态--放肆的青春诠释了悲伤</title>
+    <meta name="keywords" content="个人博客" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="../../css/index.css"/>
+    <link rel="stylesheet" href="../../css/style.css"/>
+    <link rel="stylesheet" href="../../layui/css/layui.css">
+
+    <script type="text/javascript" src="../../js/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="../../js/jquery.SuperSlide.2.1.1.js"></script>
+    <script type="text/javascript" src="../../layui/layui.js"></script>
+    <script type="text/javascript" src="../../js/share/share.js"> </script>
+    <script type="text/javascript" src="../../js/unit/unitil.js"></script>
+    <!--[if lt IE 9]>
+    <script src="js/html5.js"></script>
+    <![endif]-->
+    <style>
+        .pl_ts{float: left;width: 100%;color: red;display: none}
+        .say_pyq a{cursor: pointer}
+        .say_pyq a img{display: inline;}
+         #c_right .s_about img{margin-left: 15px;}
+    </style>
+</head>
+
+<body>
+<!--header start-->
+<div id="header">
+      <img alt="img" src="../../images/welcome.png" width="300" height="50" style="margin-left: 350px">
+    <p>青春是打开了,就合不上的书。人生是踏上了，就回不了头的路，爱情是扔出了，就收不回的赌注。</p>
+</div>
+<!--header end-->
+<!--nav-->
+<div id="nav">
+    <ul>
+       		 <li><a href="../../index.html">首页</a></li>
+	         <li><a href="about.jsp">关于我</a></li>
+	         <li><a href="learn.html">学海无涯</a></li>
+	     <!--     <li><a href="dynamics.html">个人动态</a></li> -->
+	         <li><a href="personalDiary.html">个人日记</a></li>
+	         <li><a href="media.html">媒体展示</a></li>
+	         <li><a href="message.html">留言板</a></li>
+	         <div class="clear"></div>
+    </ul>
+</div>
+<!--nav end-->
+<!--content start-->
+<div id="content">
+    <!--left-->
+    <div class="left" id="dynamics_me">
+        <div class="weizi">
+            <div class="wz_text">当前位置：<a href="../../index.html">首页</a>><h1>个人动态</h1></div>
+        </div>
+        <div class="say_content" id="say_content">
+
+            <div class="one_content" id="1">
+                <div class="say_head">
+                    <img src="images/my.jpg" width="50" height="50">
+                    <p clas="userName">我的昵称</p>
+                    <p class="say_time">2017-08-23</p>
+                </div>
+                <div class="say_content">
+                    <p> 那个可以任意挥霍的年纪，人们叫它'青春'。</p>
+                </div>
+                <div class="say_pyq">
+                    <a class="my_dz" onclick="dz(1)"><img src="../../images/dz_qian.png" width="22" height="20"></a>
+                    <a class="my_pl" onclick="pl(1)">评论</a>
+                    <a class="my_fx" onclick="fx(1)">分享</a>
+                </div><hr>
+                <div class="zan_box">
+                    <!--点赞显示区域-->
+                    你好清楚，鸟事物质，highhi个，哟i的九宫格，却合法合规<a>等24人觉得赞</a>
+                </div>
+                <div class="pl_box">
+                    <!--评论区域-->
+                    <div>
+                       <div class="pinglun">
+                           <img src="images/s1.jpg" width="40" height="40">
+                           <div class="user_xx">
+                               <p clas="userName">怕冷却爱上冰</p>
+                               <p class="say_time">2017-08-23</p>
+                           </div>
+                           <div class="pl_xx">
+                               : 你那边热不热？htoihd目的哈佛的哈佛i哈的是佛i但是有toe后和和工行他哟还哦到哈佛大师傅化工i阿什
+                           </div>
+                       </div>
+                       <div class="huifu"><!--评论回复-->
+                            <img src="images/my.jpg" width="40" height="40">
+                            <div class="user_xx">
+                                <p clas="userName">我的昵称</p>
+                                <p class="say_time">2017-08-23</p>
+                            </div>
+                            <div class="huifu_user">回复&nbsp;&nbsp;&nbsp;<a class="userName">怕冷却爱上冰</a>&nbsp;&nbsp;&nbsp;:</div>
+                            <div class="pl_xx">
+                                你那边热不热？fdhfdhfoidshfosw我i后盖都恢复的施工i是和
+                            </div>
+                        </div>
+                    </div>
+                    <!--显示评论框-->
+
+                </div>
+            </div>
+            <!--一条end-->
+            <div class="one_content" id="2">
+                <div class="say_head">
+                    <img src="images/my.jpg" width="50" height="50">
+                    <p clas="userName">我的昵称</p>
+                    <p class="say_time">2017-08-23</p>
+                </div>
+                <div class="say_content">
+                    <p> 那个可以任意挥霍的年纪，人们叫它'青春'。</p>
+                </div>
+                <div class="say_pyq">
+                    <a class="my_dz" onclick="dz(2)"><img src="images/dz_qian.png" width="22" height="20"></a>
+                    <a class="my_pl" onclick="pl(2)">评论</a>
+                    <a class="my_fx" onclick="fx(2)">分享</a>
+                </div><hr>
+                <div class="zan_box">
+                    <!--点赞显示区域-->
+                    你好清楚，鸟事物质，highhi个，哟i的九宫格，却合法合规<a>等24人觉得赞</a>
+                </div>
+                <div class="pl_box">
+                    <!--评论区域-->
+                    <div>
+                        <div class="pinglun">
+                            <img src="images/s1.jpg" width="40" height="40">
+                            <div class="user_xx">
+                                <p clas="userName">怕冷却爱上冰</p>
+                                <p class="say_time">2017-08-23</p>
+                            </div>
+                            <div class="pl_xx">
+                                : 你那边热不热？htoihd目的哈佛的哈佛i哈的是佛i但是有toe后和和工行他哟还哦到哈佛大师傅化工i阿什
+                            </div>
+                        </div>
+                        <div class="huifu"><!--评论回复-->
+                            <img src="images/my.jpg" width="40" height="40">
+                            <div class="user_xx">
+                                <p clas="userName">我的昵称</p>
+                                <p class="say_time">2017-08-23</p>
+                            </div>
+                            <div class="huifu_user">回复&nbsp;&nbsp;&nbsp;<a class="userName">怕冷却爱上冰</a>&nbsp;&nbsp;&nbsp;:</div>
+                            <div class="pl_xx">
+                                你那边热不热？fdhfdhfoidshfosw我i后盖都恢复的施工i是和
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--一条end-->
+
+        </div>
+    </div>
+    <!--end left -->
+    <!--right-->
+    <div class="right" id="c_right">
+        <div class="s_about">
+            <h2>关于博主</h2>
+            <img src="images/my.jpg" width="230" height="230" alt="博主"/>
+            <p>博主：XX</p>
+            <p>职业：web前端、视觉设计</p>
+            <p>简介：</p>
+            <p>
+	           <a target=blank href=tencent://message/?uin=1129896968&Site=lyg&Menu=yes><span class="left b_1"></span></a><a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=9a9e02cd8b34796871514359bae9521d53a793fce9e46794b69d18b43fcf540c"><img border="0" src="//pub.idqqimg.com/wpa/images/group.png" alt="難忘的、壹天" title="難忘的、壹天"></a>
+	           <div class="clear"></div>
+	        </p>
+        </div>
+
+    </div>
+    <!--end  right-->
+    <div class="clear"></div>
+
+</div>
+<!--content end-->
+<!--footer-->
+    <div id="footer">
+      <p>The Boy Who Harnessed The Wind Liaoyuangui</p>
+      <p>联系方式:1129696968@qq.com</p>
+    </div>
+<!--footer end-->
+<script type="text/javascript">jQuery(".lanmubox").slide({easing:"easeOutBounce",delayTime:400});</script>
+<script  type="text/javascript" src="../../js/nav.js"></script>
+<script type="text/javascript" src="../../js/content/theme.js"></script>
+<script>
+    //评论
+    var did   //动态id
+    function pl(id){
+    // alert(id) 把id传过来区分评论的是那一条
+      did =id ;
+      var is_used = $("#pl_area"+did+"").val();
+      if(is_used==undefined){ //如果已经存在不能再创建
+          $("div").remove(".pl_area"); //删除其他的评论框
+          var str = '';
+          str="<div class='pl_area' id='pl_area"+did+"'>"+"<textarea id='content_"+did+"'></textarea>"+"<input class='btn_send' type='button' onclick='btnSend(did)' value='发送'></div>" +
+                  "<div class='pl_ts'>请输入评论内容</div>";
+          $("#"+did+"").append(str); //创建一个评论框
+      }
+
+
+  }
+    //点赞
+  var flag = false;
+  function dz(id){
+     //首先判断用户赞过没有，有就取消，用用户id 和 动态id 去查
+      //改变图片
+      if(flag==false){
+          $("#"+id+" .say_pyq img").attr("src",'../../images/dz_hou.png');
+          flag=true;
+      }else{
+          $("#"+id+" .say_pyq img").attr("src",'../../images/dz_qian.png');
+          flag=false;
+      }
+
+
+  }
+    //分享
+  function fx(id){
+
+  }
+    //发送评论
+  function btnSend(id){
+    did=id;
+    var content = $("#content_"+did+"").val();
+    if(content.trim()==''){
+        $(".pl_ts").css({"display":"block"})
+        return;
+    }else{
+        $(".pl_ts").css({"display":"none"})
+    }
+    console.log(content);
+    //评论保存的方法写在这里
+  }
+
+</script>
+<script type="text/javascript">
+    //动态拿出数据
+    getAllDynamics();
+    function getAllDynamics(){
+         $("#say_content").append("" +
+        "<div class='one_content' id='1'>"+
+        "    <div class='say_head'>"+
+        "          <img src='images/my.jpg' width='50' height='50'>"+
+        "         <p clas='userName'>我的昵称</p>"+
+        "   <p class='say_time'>2017-08-23</p>"+
+        "   </div>"+
+        "   <div class='say_content'>"+
+        //        <p> 那个可以任意挥霍的年纪，人们叫它'青春'。</p>"+
+        "   </div>"+
+        "   <div class='say_pyq'>"+
+        "   <a class='my_dz' onclick='dz(1)'><img src='images/dz_qian.png' width='22' height='20'></a>"+
+        "   <a class='my_pl' onclick='pl(1)'>评论</a>"+
+        "   <a class='my_fx' onclick='fx(1)'>分享</a>"+
+        "  </div><hr>"+
+        "   <div class='zan_box'>"+
+       //     <!--点赞显示区域-->"
+        "        你好清楚，鸟事物质，highhi个，哟i的九宫格，却合法合规<a>等24人觉得赞</a>"+
+        "  </div>"+
+        " <div class='pl_box'>"+
+     //       <!--评论区域-->"
+        "         <div>"+
+        "        <div class='pinglun'>"+
+        "         <img src='images/s1.jpg' width='40' height='40'>"+
+        "       <div class='user_xx'>"+
+        "  <p clas='userName'>怕冷却爱上冰</p>"+
+        "  <p class='say_time'>2017-08-23</p>"+
+        " </div>"+
+        " <div class='pl_xx'>"+
+    //: 你那边热不热？htoihd目的哈佛的哈佛i哈的是佛i但是有toe后和和工行他哟还哦到哈佛大师傅化工i阿什
+        " </div>"+
+        " </div>"+
+        "  <div class='huifu'>"+
+        "          <img src='images/my.jpg' width='40' height='40'>"+
+        "         <div class='user_xx'>"+
+        "     <p clas='userName'>我的昵称</p>"+
+        "   <p class='say_time'>2017-08-23</p>"+
+        "  </div>"+
+        "  <div class='huifu_user'>回复&nbsp;&nbsp;&nbsp;<a class='userName'>怕冷却爱上冰</a>&nbsp;&nbsp;&nbsp;:</div>"+
+        "  <div class='pl_xx'>"+
+               // 你那边热不热？fdhfdhfoidshfosw我i后盖都恢复的施工i是和
+        "  </div>"+
+        "  </div>"+
+        "  </div>"+
+        //    <!--显示评论框-->
+        " </div>"+
+       " </div>"
+     );
+    }
+
+</script>
+
+</body>
+</html>

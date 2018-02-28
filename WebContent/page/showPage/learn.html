@@ -1,0 +1,221 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<link rel="shortcut icon" type="image/x-icon" href="../../images/ico.ico" media="screen" />
+<title>学海无涯--放肆的青春诠释了悲伤</title>
+<meta name="keywords" content="个人博客" />
+<meta name="description" content="" />
+    <link rel="stylesheet" href="../../css/index.css"/>
+    <link rel="stylesheet" href="../../css/style.css"/>
+    <link rel="stylesheet" href="../../layui/css/layui.css">
+
+    <script type="text/javascript" src="../../js/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="../../js/jquery.SuperSlide.2.1.1.js"></script>
+    <script type="text/javascript" src="../../layui/layui.js"></script>
+    <script type="text/javascript" src="../../js/share/share.js"> </script>
+    <script type="text/javascript" src="../../js/unit/unitil.js"></script>
+<!--[if lt IE 9]>
+<script src="js/html5.js"></script>
+<![endif]-->
+    <style>
+       #c_right .s_about img{margin-left: 15px;}
+        #loading{
+            width: 100px;
+		    height: 100px;
+		    /* border: 1px solid; */
+		    margin: 0 auto;
+		    line-height: 730px;
+       }
+       #fyHr{display: none;}
+    </style>
+</head>
+
+<body>
+      <!--header start-->
+    <div id="header">
+       <img id="headImgUrl" alt="img" src="../../images/welcome.png" width="300" height="50" style="margin-left: 350px">
+       <p id="headSign">青春是打开了,就合不上的书。人生是踏上了，就回不了头的路，爱情是扔出了，就收不回的赌注。</p>    
+    </div>
+     <!--header end-->
+    <!--nav-->
+     <div id="nav">
+         <ul>
+	         <li><a href="../../index.html">首页</a></li>
+	         <li><a href="about.jsp">关于我</a></li>
+	         <li><a href="learn.html">学海无涯</a></li>
+	  <!--        <li><a href="dynamics.html">个人动态</a></li> -->
+	         <li><a href="personalDiary.html">个人日记</a></li>
+	         <li><a href="media.html">媒体展示</a></li>
+	         <li><a href="message.html">留言板</a></li>
+	         <div class="clear"></div>
+        </ul>
+      </div>
+       <!--nav end-->
+    <!--content start-->
+    <div id="content">
+       <!--left-->
+         <div class="left" id="learn">
+           <div class="weizi">
+             <div class="wz_text">当前位置：<a href="../../index.html">首页</a>><h1>学海无涯</h1></div>
+           </div>
+          <!--wz end-->
+           <div class="l_content">
+		              <!--文章-->
+		        <div class="content_text" id='content_text'>
+		            <div  id="loading"><img alt="内容加载中..." src="../../images/loading.gif"></div> 
+		        </div>
+		        <!--分页-->
+		        <hr id="fyHr"><div id="fenye">
+		            <div id="demo7" style="margin: -5px 0 0 0;height: 50px;margin-left: 30px;"></div>
+		        </div>
+         </div>
+          </div>
+         <!--end left -->
+          <!--right-->
+         <div class="right" id="c_right">
+          <div class="s_about">
+	          <h2>关于我<a href="about.jsp">更多>></a></h2>
+	           <img class="person_tx" src="" width="230" height="230" alt="个人头像"/>
+	           <p  class='person_name'></p>
+	           <p class='person_work'></p>
+	           <p class='person_address'></p>
+	           <p>
+	           <a target=blank href=tencent://message/?uin=1129896968&Site=lyg&Menu=yes><span class="left b_1"></span></a><a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=9a9e02cd8b34796871514359bae9521d53a793fce9e46794b69d18b43fcf540c"><img border="0" src="//pub.idqqimg.com/wpa/images/group.png" alt="難忘的、壹天" title="難忘的、壹天"></a>
+	           <div class="clear"></div>
+	           </p>
+          </div>
+          <!--栏目分类-->
+	        <div class="lanmubox">
+	            <div class="hd">
+	                <ul><li>精心推荐</li><li>最新文章</li></ul>
+	            </div>
+	            <div class="bd">
+	                <ul id='jxtj'>
+	                </ul>
+	                <ul id='zxwz'>
+	                </ul>
+	            </div>
+	        </div>
+           <!--end-->
+         </div>
+         <!--end  right-->
+         <div class="clear"></div>
+       </div>  
+   
+    <!--content end-->
+    <!--footer-->
+    <div id="footer">
+       <p id="footLabel">The Boy Who Harnessed The Wind Liaoyuangui</p>
+       <p id="footLabel1">联系方式:1129696968@qq.com</p>
+    </div>
+    <!--footer end-->
+    <script type="text/javascript">jQuery(".lanmubox").slide({easing:"easeOutBounce",delayTime:400});</script>
+	<script  type="text/javascript" src="../../js/nav.js"></script>
+	<script type="text/javascript" src="../../js/content/content.js"></script>
+	<script type="text/javascript" src="../../js/unit/unitil.js"></script>
+	<script type="text/javascript" src="../../js/content/theme.js"></script>
+</body>
+
+<script>
+     //获取个人信息
+     getPersonInfo();  
+     //查询推荐的文章
+     getTjArticles();
+     //查询最新的文章
+     getNewArticles();
+     
+     //打开原图
+     function getImgInfo(t){
+     	window.open(t.src)
+     }
+</script>
+ <script>
+         layui.use(['element','laypage', 'layer'], function(){
+             var $ = layui.jquery
+             ,element = layui.element; //Tab的切换功能，切换事件监听等，需要依赖element模块
+             var laypage = layui.laypage
+                     ,layer = layui.layer;
+             var xxdd = utilExt.getUrlParam("xxdd");
+             getArticlesInfo();  //获取数据
+             function  getArticlesInfo(){
+            	 var  data={"classId":xxdd};
+            	 $.ajax({
+            		url:'../../articles/queryAllArticles.do',
+            		data:data,
+            		type:'post',
+            		success:function(data){
+            			//console.log(data)
+            			  //分页完整功能
+                        if(data.length>6){
+           			    	//调用分页
+           					  laypage.render({
+           					    elem: 'demo7'
+           					    ,count: data.length
+           					    ,limit:'6'
+           					    ,layout: ['count', 'prev', 'page', 'next',  'skip']
+           					    ,jump: function(obj){
+           					      //模拟渲染
+           					      document.getElementById('content_text').innerHTML = function(){
+           					        var arr = []
+           					        ,thisData = data.concat().splice(obj.curr*obj.limit - obj.limit, obj.limit);
+           					        layui.each(thisData, function(index, item){
+           					          arr.push( "<div class='wz' >"+
+           		    		                     " <h3><a href='#' title=''>"+item.centent_title+"</a></h3>"+
+           		    		                     "<dl>"+
+           		    		                         " <dt><img src='"+item.content_icon+"' onclick='getImgInfo(this)' width='200'  height='123' alt='显示图片'></dt>"+
+           		    		                         "<dd>"+
+           		    		                             " <div class='dd_text_1'>"+item.content1+"</div>"+
+           		    		                             " <p class='dd_text_2'>"+
+           		    		                             " <span class='left sj'>"+item.add_time+"</span>"+
+           		    		                             " <span class='left fl'>分类:<a href='#' title=''>"+item.class_name+"</a></span><span class='left yd'><a href='articleDetails.html?aId="+item.articles_id+"' target='_blank' title='阅读全文'>阅读全文</a>"+
+           		    		                             " </span>"+
+           		    		                             " <div class='clear'></div>"+
+           		    		                             " </p>"+
+           		    		                         " </dd>"+
+           		    		                         " <div class='clear'></div>"+
+           		    		                     " </dl>"+
+           		    		                 " </div>");
+           					        });
+           					        return arr.join('');
+           					      }();
+           					    }
+           					  });
+           			    }else{
+           			    	if(data.length==0){
+           			    		$("#content_text").html("暂无数据...");
+           			    	}else{
+           			    		var str1="";
+           			    		$.each(data,function(index,item){
+              	    		               str1 += "<div class='wz' >"+
+              	    		                     " <h3><a href='#' title=''>"+item.centent_title+"</a></h3>"+
+              	    		                     "<dl>"+
+              	    		                         " <dt><img src='"+item.content_icon+"' onclick='getImgInfo(this)' width='200'  height='123' alt='显示图片'></dt>"+
+              	    		                         "<dd>"+
+              	    		                             " <div class='dd_text_1'>"+item.content1+"</div>"+
+              	    		                             " <p class='dd_text_2'>"+
+              	    		                             " <span class='left sj'>"+item.add_time+"</span>"+
+              	    		                             " <span class='left fl'>分类:<a href='#' title=''>"+item.class_name+"</a></span><span class='left yd'><a href='articleDetails.html?aId="+item.articles_id+"' target='_blank' title='阅读全文'>阅读全文</a>"+
+              	    		                             " </span>"+
+              	    		                             " <div class='clear'></div>"+
+              	    		                             " </p>"+
+              	    		                         " </dd>"+
+              	    		                         " <div class='clear'></div>"+
+              	    		                     " </dl>"+
+              	    		                 " </div>"
+              	    			});
+           			    		$("#content_text").html(str1)
+           			    	}
+           			    }
+
+            		}
+            	 });
+             }
+             
+
+         });
+ </script>
+
+
+</html>
+
